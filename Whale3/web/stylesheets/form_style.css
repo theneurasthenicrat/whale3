@@ -1,0 +1,234 @@
+/*Ordinal égalité*/
+[draggable], .item {
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: -moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.ordinal_egal .inter {
+    margin:0px;
+    height: 9px;
+    background-color:transparent;
+    list-style-type:none;
+}
+
+
+.ordinal_egal .fantome { 
+    display: inline-block;
+    margin:0px;
+    width:90px;
+    border: 1px solid #000;
+    border-radius:2px;
+    cursor: move;
+    text-align:center;
+    padding:2px;
+    box-shadow: 1px 1px 12px #555;
+    line-height: 1.2em; 
+    border: 1px solid #fcefa1;
+    background-color: #ffffbb;
+    list-style-type:none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.8;
+    pointer-events: none;
+
+ }
+
+#resCont, #resInter {
+display: none;
+}
+
+
+.ordinal_egal .item {
+    display : inline-block;
+    width:90px;
+    border: 1px solid #000;
+    border-radius:2px;
+    cursor: move;
+    text-align:center;
+    padding:2px;
+    box-shadow: 1px 1px 12px #555;
+    background-color:white;
+    list-style-type:none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ordinal_egal #liste .item {
+    margin:0px;
+}
+
+.ordinal_egal #list_init .item {
+    margin:1px;
+}
+
+.ordinal_egal #init {
+    position: relative;
+    display : inline-block;
+    float: left;
+    min-height: 150px;
+    width: 40%;
+}
+
+.ordinal_egal .cont {    
+    list-style-type:none;
+}
+
+.ordinal_egal #res {
+    position: relative;
+    display : inline-block;
+    float: right;
+    min-height: 150px;
+    width: 50%;
+}
+
+
+/*Ordinal Strict*/
+
+#sortable { 
+            padding-left: 0px;
+            }
+ 
+#sortable li {
+               width: 110px;
+               cursor: move;
+               text-align: center;
+               box-shadow: 1px 1px 10px #aaa;
+               list-style-type:none;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               white-space: nowrap;
+               padding: 5px;
+}
+
+#sortable .item {
+                  margin: 4px auto;
+                  font-weight: bold;
+                  background: #aaa;
+                  color: #fff;
+                  border: 1px solid #ccc;
+                  }
+
+#sortable .fantome { 
+                     margin: 4px auto;
+                     height: 1.5em; 
+                     line-height: 1.2em; 
+                     border: 1px solid #fcefa1;
+                     background-color: #ffffbb;
+                     }
+
+.ordinal_strict #list_init .item {
+    display : inline-block;
+    margin:1px;
+    width:110px;
+    cursor: pointer;
+    text-align:center;
+    box-shadow: 1px 1px 10px #aaa;
+    list-style-type:none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+    background: #aaa;
+    padding: 5px;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+
+.ordinal_strict h2 {
+                     text-align: center;
+                     }
+
+#init {
+        display : table-cell;
+        min-height: 150px;
+        width: 300px;
+        border-right: 2px dotted #ccc;
+        padding: 10px 30px;
+}
+
+#res {
+       display : table-cell;
+       min-height: 150px;
+       width: 300px;
+       padding: 10px 30px;
+       }
+
+
+
+
+/*Ordinal * 2 */
+
+
+#click_arrow {
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: -100px;
+    opacity: 0.3;
+
+}
+
+#drag_arrow {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: -60px;
+    opacity: 0.3;
+
+}
+
+/* Qualiitatif  */
+
+.qualitatif img {
+    height : 20px;
+    width : 20px;
+}
+
+#case_center {
+    align : center;
+    width : 100px;
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space : nowrap;
+}
+
+/*Quantitatif*/
+
+.quantitatif .nom_opt {
+	display:inline-block;
+	width:97px !important;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/*Binaire*/
+
+.binaire table {
+	font:100% Arial, Helvetica, sans-serif; 
+}
+
+.binaire .oui {
+    background-color:seagreen
+}
+
+.binaire .non {
+    background-color:red
+}
+
+/* Quantitatif 2*/
+
+
+ .quantitatif2 .cursor {
+display:inline-block;
+}
+
+.quantitatif2 .item {
+text-align: center;
+
+}

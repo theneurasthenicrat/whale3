@@ -1,0 +1,122 @@
+<?xml version="1.0" ?>
+<web-app 
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">  
+
+  <!-- Servlet list -->
+  <servlet>
+    <servlet-name>IndexController</servlet-name>
+    <servlet-class>whale3.controllers.page.IndexController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>LogoutController</servlet-name>
+    <servlet-class>whale3.controllers.page.LogoutController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>whale3.controllers.page.LoginController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>NewPollController</servlet-name>
+    <servlet-class>whale3.controllers.page.NewPollController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>PollController</servlet-name>
+    <servlet-class>whale3.controllers.page.PollController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>JSONPollController</servlet-name>
+    <servlet-class>whale3.controllers.json.PollController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>VoteController</servlet-name>
+    <servlet-class>whale3.controllers.page.VoteController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>CreateAccountController</servlet-name>
+    <servlet-class>whale3.controllers.page.CreateAccountController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>AdminPollController</servlet-name>
+    <servlet-class>whale3.controllers.page.AdminPollController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>DataVizController</servlet-name>
+    <servlet-class>whale3.controllers.page.DataVizController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>LoginBoxController</servlet-name>
+    <servlet-class>whale3.controllers.LoginBoxController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>LanguageController</servlet-name>
+    <servlet-class>whale3.controllers.LanguageController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  <!-- Servlet mappings -->
+  <servlet-mapping>
+    <servlet-name>IndexController</servlet-name>
+    <url-pattern>/index.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/login.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogoutController</servlet-name>
+    <url-pattern>/logout.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NewPollController</servlet-name>
+    <url-pattern>/newPoll.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PollController</servlet-name>
+    <url-pattern>/poll.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>JSONPollController</servlet-name>
+    <url-pattern>/poll.do-json</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>VoteController</servlet-name>
+    <url-pattern>/vote.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateAccountController</servlet-name>
+    <url-pattern>/createAccount.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DataVizController</servlet-name>
+    <url-pattern>/dataViz.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminPollController</servlet-name>
+    <url-pattern>/adminPoll.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>LoginBoxController</servlet-name>
+    <url-pattern>/loginBox.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LanguageController</servlet-name>
+    <url-pattern>/setLanguage.do</url-pattern>
+  </servlet-mapping>
+
+</web-app>

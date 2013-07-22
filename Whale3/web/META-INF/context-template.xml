@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+  <Resource name="jdbc/whale3"
+            auth="Container"
+            type="javax.sql.DataSource"
+            username="(put the db username here)"
+            password="(put the db password here)"
+            driverClassName="(put the db driver here)"
+            url="(put the db URL in JDBC format here)"
+            maxActive="8"
+            maxIdle="4"/>
+</Context>
