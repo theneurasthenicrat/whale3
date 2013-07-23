@@ -4,5 +4,5 @@
   <fmt:message key="connectedAs">
     <fmt:param value="${user.nickName}"/>
   </fmt:message><br/>
-  <i class="icon icon-signout whaleicon"></i><a href="logout.do"><fmt:message key="logout"/></a>
+  <span class="icon icon-signout whaleicon"></span><a href="logout.do"><fmt:message key="logout"/></a>
 </div>

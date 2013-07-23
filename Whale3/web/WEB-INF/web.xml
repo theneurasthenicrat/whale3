@@ -56,6 +56,21 @@
     <servlet-class>whale3.controllers.page.DataVizController</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>SetClosingDateController</servlet-name>
+    <servlet-class>whale3.controllers.page.SetClosingDateController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>MyPollsController</servlet-name>
+    <servlet-class>whale3.controllers.page.MyPollsController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>ManageVotersController</servlet-name>
+    <servlet-class>whale3.controllers.page.ManageVotersController</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
 
   <servlet>
     <servlet-name>LoginBoxController</servlet-name>
@@ -108,6 +123,18 @@
   <servlet-mapping>
     <servlet-name>AdminPollController</servlet-name>
     <url-pattern>/adminPoll.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MyPollsController</servlet-name>
+    <url-pattern>/myPolls.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SetClosingDateController</servlet-name>
+    <url-pattern>/setClosingDate.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ManageVotersController</servlet-name>
+    <url-pattern>/manageVoters.do</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

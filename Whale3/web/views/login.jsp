@@ -6,7 +6,7 @@
 
 <form method="POST" action="login.do">
   <div class="form">
-    <h1><i class="icon icon-user whaleicon"></i> <fmt:message key="loginTitle"/></h1>
+    <h1><span class="icon icon-user whaleicon"></span> <fmt:message key="loginTitle"/></h1>
     <div>
       <label><fmt:message key="emailAddress"/></label> <input type="email" name="eMail" required="required"/>
     </div>

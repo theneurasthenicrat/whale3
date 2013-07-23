@@ -3,5 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="/home/sylvain/git/whale3/Whale3/web/WEB-INF/lib/postgresql-jdbc4.jar"/>
+	<classpathentry kind="lib" path="/home/sylvain/git/whale3/Whale3/web/WEB-INF/lib/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="/home/sylvain/git/whale3.old/lib/json-taglib-0.4.1.jar"/>
+	<classpathentry kind="lib" path="/home/sylvain/git/whale3.old/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="/home/sylvain/git/whale3.old/lib/jstl-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

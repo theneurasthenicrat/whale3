@@ -4,9 +4,9 @@
 
 <fmt:setBundle basename="messages.poll"/>
 
-<form method="POST" action=<%= "vote.do?id=" + request.getParameter("id") %>>
+<form method="POST" action="<%= "vote.do?id=" + request.getParameter("id") %>">
   <div class="form">
-    <h1><i class="icon icon-lock whaleicon"></i> <fmt:message key="certificateTitle"/></h1>
+    <h1><span class="icon icon-lock whaleicon"></span> <fmt:message key="certificateTitle"/></h1>
     <div>
       <label><fmt:message key="certificate"/></label> <input type="text" name="certificate" required="required"/>
     </div>

@@ -29,7 +29,7 @@
     font-style: normal;
 }
 
-i, .icon {
+span.icon {
   font-family: 'mfg_labs_iconsetregular';
   font-style: normal;
   speak: none;
