@@ -15,6 +15,8 @@ import VoteController._
 
 @WebServlet(name = "VoteController", urlPatterns = Array("/vote.do"))
 class VoteController extends PollController with InvitationRequired {
+  def votingUser: User = if (request.getAttribute("invitedUser") == null) user else request.getAttribute("invitedUser").asInstanceOf[InvitedUser]	
+	
 	override def main(): Unit = {
 		val pollId: String = request.getParameter("id")
 		errorCode match {
@@ -43,11 +45,11 @@ class VoteController extends PollController with InvitationRequired {
 	private def updateVote(): Unit = {
 		val pollId: String = request.getParameter("id")
 		var currentUser: User = null
-		if (user == null) {
+		if (votingUser == null) {
 			val nickName: String = request.getParameter("nickName")
 			currentUser = Users.createSimpleUser(nickName)
 		} else {
-			currentUser = user
+			currentUser = votingUser
 		}
 		var value: StringBuffer = new StringBuffer(request.getParameter("candidate0"))
 		var i: Int = 1
@@ -81,9 +83,9 @@ class VoteController extends PollController with InvitationRequired {
 
 	protected def printPollForm(poll: Poll): Unit = {
 		var currentVotes: Array[String] = new Array[String](poll.candidates.size)
-		if (user != null) {
+		if (votingUser != null) {
 			try {
-				val v: Vote = Polls.getVoteByPollIdAndUserId(poll.pollId, user.userId)
+				val v: Vote = Polls.getVoteByPollIdAndUserId(poll.pollId, votingUser.userId)
 				if (v == null) {
 					currentVotes = null
 				} else {
@@ -127,6 +129,7 @@ class VoteController extends PollController with InvitationRequired {
 		out.println("<input type=\"hidden\" id=\"maximum\" name=\"maximum\" value=\"" + poll.preferenceModel.maxValue() + "\"/>")
 		out.println("<input type=\"hidden\" id=\"minimum\" name=\"minimum\" value=\"" + poll.preferenceModel.minValue() + "\"/>")
 		out.println("<input type=\"hidden\" name=\"nvid\" value=\"" + whale3.utils.Maths.generateRandomString(8) + "\"/>")
+    out.println("<input type=\"hidden\" name=\"certificate\" value=\"" + request.getParameter("certificate") + "\"/>")
 		out.println("<input type=\"submit\" value=\"OK\"/>")
 		out.println("</div>")
 		out.println("</form>")
@@ -148,9 +151,9 @@ class VoteController extends PollController with InvitationRequired {
 	protected def printVoteLinePositiveNegative(poll: Poll, currentVotes: Array[String]): Unit = {
 		out.println("<tr>")
 		out.println("<td class=\"pollTableUser\">")
-		if (user != null) {
-			out.println("<span>" + user.nickName + "</span>")
-			out.println("<input type=\"hidden\" name=\"nickName\" value=\"" + user.nickName + "\"/>")
+		if (votingUser != null) {
+			out.println("<span>" + votingUser.nickName + "</span>")
+			out.println("<input type=\"hidden\" name=\"nickName\" value=\"" + votingUser.nickName + "\"/>")
 		} else {
 			out.println("<label>" + getMessage("messages.poll", "nickName", Nil) + "</label>")
 			out.println("<input type=\"text\" required=\"required\" name=\"nickName\" value=\"\"/>")
@@ -190,8 +193,8 @@ class VoteController extends PollController with InvitationRequired {
 		out.println("<link rel=\"stylesheet\" href=\"stylesheets/form_style.css\" />")
 		out.println("<form id=\"formulaire\" class=\"ordinal_" + strictEgal + "\" method=\"post\" action=\"vote.do?id=" + poll.pollId + "\">")
 
-		if (user != null) {
-			out.println("<input type=\"hidden\" name=\"nickName\" value=\"" + user.nickName + "\"/>")
+		if (votingUser != null) {
+			out.println("<input type=\"hidden\" name=\"nickName\" value=\"" + votingUser.nickName + "\"/>")
 		} else {
 			out.println("<label>" + getMessage("messages.poll", "nickName", Nil) + "</label>")
 			out.println("<input type=\"text\" required=\"required\" name=\"nickName\" value=\"\"/>")
@@ -283,6 +286,7 @@ class VoteController extends PollController with InvitationRequired {
 		}
 		out.println("<div>")
 		out.println("<input type=\"hidden\" name=\"nvid\" value=\"" + whale3.utils.Maths.generateRandomString(8) + "\"/>")
+    out.println("<input type=\"hidden\" name=\"certificate\" value=\"" + request.getParameter("certificate") + "\"/>")
 		out.println("<input type=\"submit\" value=\"OK\"/>")
 		out.println("</div>")
 		out.println("</form>")
@@ -308,6 +312,7 @@ class VoteController extends PollController with InvitationRequired {
 		printVotes(poll, "currentVotes")
 		out.println("<div>")
 		out.println("<input type=\"hidden\" name=\"nvid\" value=\"" + whale3.utils.Maths.generateRandomString(8) + "\"/>")
+		out.println("<input type=\"hidden\" name=\"certificate\" value=\"" + request.getParameter("certificate") + "\"/>")
 		out.println("<input type=\"submit\" value=\"OK\"/>")
 		out.println("</div>")
 		out.println("</form>")
@@ -321,9 +326,9 @@ class VoteController extends PollController with InvitationRequired {
 	protected def printVoteLine(poll: Poll, currentVotes: Array[String]): Unit = {
 		out.println("<tr>")
 		out.println("<td class=\"pollTableUser\">")
-		if (user != null) {
-			out.println("<span>" + user.nickName + "</span>")
-			out.println("<input type=\"hidden\" name=\"nickName\" value=\"" + user.nickName + "\"/>")
+		if (votingUser != null) {
+			out.println("<span>" + votingUser.nickName + "</span>")
+			out.println("<input type=\"hidden\" name=\"nickName\" value=\"" + votingUser.nickName + "\"/>")
 		} else {
 			out.println("<label>" + getMessage("messages.poll", "nickName", Nil) + "</label>")
 			out.println("<input type=\"text\" required=\"required\" name=\"nickName\" value=\"\"/>")

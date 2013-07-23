@@ -4,6 +4,9 @@ import ManageVotersController._
 import whale3.database.Polls
 import whale3.vote.Poll
 import whale3.vote.InvitedUser
+import whale3.database.Users
+import whale3.database.ExistingUserException
+import whale3.database.UserDeletionException
 
 class ManageVotersController extends AbstractPageController with AdminRequired with ConnectionRequired {
 	override def main(): Unit = {
@@ -11,53 +14,60 @@ class ManageVotersController extends AbstractPageController with AdminRequired w
 		errorCode match {
 			case LIST => {}
 			case ADD => {
-				/*        val poll: Poll = Polls.getPollById(pollId)
-        val closingDate: java.util.Date = if (request.getParameter("nowOrLater").equals("now")) new java.util.Date() else whale3.utils.Dates.stringToDate(request.getParameter("closingDate") + " " + request.getParameter("closingHour") + ":" + request.getParameter("closingMinute") + ":00");
-        Polls.setClosingDate(pollId, closingDate);
-        success(getMessage("messages.admin", "setClosingDateSuccessful", Nil))
-        return*/
+				try {
+					Users.createInvitedUser(request.getParameter("voterName"), request.getParameter("voterEmail"), pollId, 16)
+				} catch {
+					case e: ExistingUserException => error(getMessage("messages.admin", "existingUser", request.getParameter("voterEmail") :: Nil))
+				}
 			}
+      case REMOVE => {
+      	try {
+      		Users.deleteInvitedUser(request.getParameter("remove"), pollId)
+      	} catch {
+          case e: UserDeletionException => error(getMessage("messages.admin", "deletionProblem", Nil))      		
+      	}
+      }
 			case UNDEFINED_POLL => error(getMessage("messages.poll", "unspecifiedPoll", Nil))
 			case _ => throw new Exception("Unknown step " + errorCode)
 		}
 		val poll: Poll = Polls.getPollById(pollId)
-		out.println("<div class=\"extendedForm\">")
+		out.println("<form method=\"POST\" action=\"manageVoters.do?id=" + poll.pollId + "\">")
 		out.println("<h1>" + getMessage("messages.admin", "manageVotersTitle", Nil) + "</h1>")
+		out.println("<table class=\"pollTable\">")
+		out.println("<thead>")
+		out.println("<tr><th class=\"pollTableHead\">" + getMessage("messages.admin", "nickName", Nil) + "</th><th class=\"pollTableHead\">" + getMessage("messages.admin", "eMail", Nil) + "</th><th class=\"pollTableHead\">" + getMessage("messages.admin", "certificate", Nil) + "</th><th></th></tr>")
+		out.println("</thead>")
+		out.println("<tbody>")
 		displayVoterList(poll)
 		displayVoterAddForm(poll)
-		out.println("</div>")
+		out.println("</tbody>")
+		out.println("</table>")
+		out.println("</form>")
+		request.getRequestDispatcher("views/pollMenu.jsp").include(request, response)
 	}
 
 	private def displayVoterList(poll: Poll): Unit = {
 		val voters: List[InvitedUser] = Polls.getInvitedUsersByPollId(poll.pollId)
-    out.println("<h2>" + getMessage("messages.admin", "voterList", Nil) + "</h2>")
-		out.println("<table class=\"pollTable\">")
-		out.println("<tbody>")
 		if (voters.isEmpty) {
-			out.println("<tr><td>" + getMessage("messages.admin", "emptyVoterList", Nil) + "</td></tr>")
+			out.println("<tr><td colspan=\"3\">" + getMessage("messages.admin", "emptyVoterList", Nil) + "</td><td></td></tr>")
 		} else {
 			voters.foreach(v => {
 				out.println("<tr>")
 				out.println("<td class=\"voterName\">" + v.nickName + "</td>")
 				out.println("<td class=\"voterEMail\">" + v.eMail + "</td>")
 				out.println("<td class=\"voterCertificate\">" + v.certificate + "</td>")
+				out.println("<td class=\"removeVoter\"><a href=\"manageVoters.do?id=" + poll.pollId + "&remove=" + v.userId + "\"><span class=\"icon icon-trash_can\"></span></a></td>")
 				out.println("</tr>")
 			})
 		}
-		out.println("</tbody>")
-		out.println("</table>")
 	}
 
 	private def displayVoterAddForm(poll: Poll): Unit = {
-		out.println("<h2>" + getMessage("messages.admin", "addVoter", Nil) + "</h2>")
-		out.println("<form method=\"POST\" action=\"manageVoters.do?id=" + poll.pollId + "\">")
-		out.println("<label>" + getMessage("messages.admin", "voterName", Nil) + "</label>")
-		out.println("<input type=\"text\" required=\"required\" name=\"voterName\"/>")
-		out.println("<label>" + getMessage("messages.admin", "voterEmail", Nil) + "</label>")
-		out.println("<input type=\"email\" name=\"voterEmail\"/>")
-		out.println("<input type=\"hidden\" name=\"add\" value=\"1\"/>")
-		out.println("<input type=\"submit\" name=\"submit\" value=\"add\"/>")
-		out.println("</form>")
+		out.println("<tr>")
+		out.println("<td><input type=\"text\" required=\"required\" name=\"voterName\"/></td>")
+		out.println("<td><input type=\"email\" required=\"required\" name=\"voterEmail\"/></td>")
+		out.println("<td><input type=\"text\" disabled=\"disabled\" value=\"" + getMessage("messages.admin", "automaticallyGenerated", Nil) + "\"/><input type=\"hidden\" name=\"add\" value=\"1\"/></td>")
+		out.println("<td><input type=\"submit\" name=\"submit\" value=\"" + getMessage("messages.admin", "addVoter", Nil) + "\"/></td>")
 	}
 
 	private def errorCode: Int = {

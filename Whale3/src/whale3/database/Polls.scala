@@ -360,7 +360,6 @@ object Polls {
 			if (!result.next()) {
 				throw new UnknownPollException(pollId)
 			}
-			result.close()
 			val voteNumber: Int = result.getInt(1)
 			val stmt2: Statement = connec.createStatement()
 			val result2: Int = stmt2.executeUpdate("INSERT INTO Votes VALUES ('" + pollId + "', '" + voteNumber + "', '" + userId + "', '" + value + "', '" + new java.sql.Timestamp(creationDate.getTime()) + "');")
@@ -369,6 +368,8 @@ object Polls {
 			}
 			connec.commit()
 			stmt.close()
+			stmt2.close()
+			result.close()
 		} catch {
 			case ex: Exception => {
 				connec.rollback()
@@ -460,9 +461,9 @@ object Polls {
 			val stmt: Statement = connec.createStatement()
 			val result: ResultSet = stmt.executeQuery("SELECT * FROM InvitedUsers WHERE pollId = '" + pollId + "' AND certificate = '" + certificate + "';")
 			connec.commit()
-			stmt.close()
 			val hasNext: Boolean = result.next()
 			result.close()
+      stmt.close()
 			hasNext
 		} catch {
 			case ex: Exception => {

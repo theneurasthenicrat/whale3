@@ -43,6 +43,8 @@ trait InvitationRequired extends AbstractPageController {
 						after()
 						return
 					}
+					// Now we set the request's invitedUser to the invited user...
+					request.setAttribute("invitedUser", Users.getInvitedUser(request.getParameter("certificate"), request.getParameter("id")))
 				}
 				case _ => {}
 			}
