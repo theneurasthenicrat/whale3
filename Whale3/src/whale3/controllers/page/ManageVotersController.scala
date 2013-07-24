@@ -27,6 +27,7 @@ class ManageVotersController extends AbstractPageController with AdminRequired w
           case e: UserDeletionException => error(getMessage("messages.admin", "deletionProblem", Nil))      		
       	}
       }
+      case INVITATION_NOT_REQUIRED => {error(getMessage("messages.admin", "invitationNotRequired", Nil)); return}
 			case UNDEFINED_POLL => error(getMessage("messages.poll", "unspecifiedPoll", Nil))
 			case _ => throw new Exception("Unknown step " + errorCode)
 		}
@@ -73,6 +74,7 @@ class ManageVotersController extends AbstractPageController with AdminRequired w
 	private def errorCode: Int = {
 		val pollId: String = request.getParameter("id")
 		if (pollId == null || pollId == "") return UNDEFINED_POLL
+		if (!Polls.getPollById(pollId).invitationRequired) return INVITATION_NOT_REQUIRED
 		if (request.getParameter("add") != null) return ADD
 		if (request.getParameter("remove") != null) return REMOVE
 		LIST
@@ -83,5 +85,6 @@ object ManageVotersController {
 	val LIST: Int = -1
 	val ADD: Int = 0
 	val REMOVE: Int = 1
+	val INVITATION_NOT_REQUIRED = 2
 	val UNDEFINED_POLL: Int = 255
 }

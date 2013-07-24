@@ -25,4 +25,8 @@
 		class="description"><fmt:message
 				key="setClosingDateDescription" /></span>
 	</a>
+
+    <p>
+        <a href="poll.do?id=${poll.pollId}"><button><fmt:message key="backToPoll"/></button></a>
+    </p>
 </div>

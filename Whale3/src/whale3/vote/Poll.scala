@@ -14,4 +14,8 @@ class Poll(@BeanProperty val pollId: String, @BeanProperty val pollTitle: String
       case (Some("no"), Some("no")) => true
       case _ => false
   }
+  def anonymize: Boolean = attributes.get("anonymize") match {
+  	case Some("all") => true
+  	case _ => false
+  }
 }

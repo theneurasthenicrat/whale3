@@ -15,6 +15,12 @@ class SetClosingDateController extends AbstractPageController with AdminRequired
 				val poll: Poll = Polls.getPollById(pollId)
 				val closingDate: java.util.Date = if (request.getParameter("nowOrLater").equals("now")) new java.util.Date() else whale3.utils.Dates.stringToDate(request.getParameter("closingDate") + " " + request.getParameter("closingHour") + ":" + request.getParameter("closingMinute") + ":00");
 				Polls.setClosingDate(pollId, closingDate);
+				val contextPath: String = request.getContextPath();
+				val protocol: String = request.getScheme();
+				val domain: String = request.getServerName();
+				val port: String = Integer.toString(request.getServerPort());
+				val path: String = protocol + "://" + domain + ":" + port + contextPath + "/";
+				response.setHeader("Refresh", "2; URL=" + path + "adminPoll.do?id=" + pollId)
 				success(getMessage("messages.admin", "setClosingDateSuccessful", Nil))
 				return
 			}

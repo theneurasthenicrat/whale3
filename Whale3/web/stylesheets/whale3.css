@@ -503,6 +503,29 @@ span.pollMenuDesc {
 	width: 300px;
 }
 
+a button {
+    height: 30px;
+    border: 1px solid #aaa;
+    background: -moz-linear-gradient(top, #eee 0%, #ddd 100%);
+    /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee),
+        color-stop(100%, #ddd) ); /* webkit */
+    cursor: pointer;
+    display: block;
+    margin: 20px 0px;
+    font-weight: 900;
+    color: #666;
+    float: left;
+    text-align: center;
+    text-decoration: none;
+}
+
+a button:hover {
+    border: 1px solid #888;
+    box-shadow: 0px 0px 2px #888;
+}
+
+
 /********************************************************/
 /* NEW POLL                                             */
 /********************************************************/
