@@ -1,8 +1,16 @@
 var scoringTitle = "Calcul de scores";
 var scoringPicture = "images/dataViz/scoring.png";
-var scoringDescription = "<p>On compte un nombre de points pour chaque candidat, de la manière suivante :</p><ul><li><strong>Pluralité :</strong> un candidat gagne 1 point chaque fois qu'il est classé en premier.</li><li><strong>Veto :</strong> un candidat gagne 1 point chaque fois qu'il n'est pas classé dernier.</li><li><strong>Borda :</strong> un candidat gagne <i>n - 1</i> points chaque fois qu'il est classé en premier, <i>n - 2</i> points chaque fois qu'il est classé en second, etc. (<i>n</i> est le nombre de candidats)</li></ul>";
+var scoringDescription = "<p>On compte un nombre de points pour chaque candidat, de la manière suivante :</p><ul><li><strong>Borda :</strong> un candidat gagne <i>n - 1</i> points chaque fois qu'il est classé en premier, <i>n - 2</i> points chaque fois qu'il est classé en second, etc. (<i>n</i> est le nombre de candidats)</li><li><strong>Pluralité :</strong> un candidat gagne 1 point chaque fois qu'il est classé en premier.</li><li><strong>Veto :</strong> un candidat gagne 1 point chaque fois qu'il n'est pas classé dernier.</li></ul>";
+var scoringDescriptionPositiveNegative = "<p>On compte un nombre de points pour chaque candidat, de la manière suivante :</p><ul><li><strong>Simili-Borda :</strong> un candidat gagne 2 points pour chaque « ++ », 1 point pour chaque « + », perd 1 point pour chaque « - », et perd 2 points pour chaque « -- ».</li><li><strong>Pluralité :</strong> un candidat gagne 1 point chaque fois qu'il est classé en premier.</li><li><strong>Approbation :</strong> un candidat gagne 1 point chaque fois qu'il est classé au-dessus du seuil spécifié.</li></ul>";
 var scoringShortDescription = "<p>Où l'on compte un nombre de points par candidat...</p>";
-
+var bordaLabel = "Borda";
+var bordaLikeLabel = "Simili-Borda";
+var pluralityLabel = "Pluralité";
+var vetoLabel = "Veto";
+var approvalLabel = "Approbation";
+var approvalThresholdLabel = "Seuil d'approbation : ";
+var scoringVectorLabel = "Vecteur de score : ";
+	
 var condorcetTitle = "Méthodes de Condorcet";
 var condorcetPicture = "images/dataViz/condorcet.png";
 var condorcetDescription = "<p>On réalise des duels entre les candidats : pour un candidat <i>A</i> et un candidat <i>B</i>, on met une flèche de <i>A</i> vers <i>B</i> si une majorité de votants préfèrent <i>A</i> à <i>B</i>, et vice-versa. L'épaisseur de la flèche dénote la différence de voix entre les deux candidats. Il y a un trait pointillé si les deux candidats sont à égalité.</p><p>Le tableau à droite est une représentation matricielle du graphe orienté. Dans les deux cas, les couleurs associées aux candidats sont calculées en fonction d'un score particulier, Copeland 0, Copeland 1 ou Simpson (à choisir dans le menu déroulant).</p>";

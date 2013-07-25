@@ -1,4 +1,7 @@
 
+var divWidth;
+var divHeight;
+
 var initRunoff = function() {
     // Global variables required by runoff-based methods...
     runoffVector = new Array();
@@ -29,15 +32,15 @@ var initRunoff = function() {
 	.attr("id", "runoffViz")
 	.attr("class", "dataViz");
 
-    width = $("#currentDataViz").width();
-    height = $("#currentDataViz").height();
+    divWidth = $("#currentDataViz").width();
+    divHeight = $("#currentDataViz").height();
 };
 
 var updateRunoff = function() {
     var colorTab = ["#c31616", "#e1dd38", "#b8da40"];
     var runoffSelect = document.getElementById("runoffProcedure");
     
-    updateRunoffViz(deepClone(runoffVector[runoffSelect.selectedIndex]), "runoffViz", width * 4 / 5, height * 0.9, {"top": 20, "bottom": 20, "right": 20, "left": 20}, colorTab);
+    updateRunoffViz(deepClone(runoffVector[runoffSelect.selectedIndex]), "runoffViz", divWidth * 4 / 5, divHeight * 0.9, {"top": 20, "bottom": 20, "right": 20, "left": 20}, colorTab);
 };
 
 function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTab) {
@@ -50,6 +53,8 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
     var yBottom = globalHeight - margin.bottom;
     var yTop = margin.top;
 
+    console.log(rounds);
+    
     // The default color ranges
     var color = d3.scale.linear()
 	.domain([0, 0.5, 1])

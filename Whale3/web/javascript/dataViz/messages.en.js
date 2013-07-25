@@ -1,7 +1,15 @@
 var scoringTitle = "Scoring methods";
 var scoringPicture = "images/dataViz/scoring.png";
-var scoringDescription = "<p>We compute a number of points for each candidate as follows:</p><ul><li><strong>Plurality :</strong> a candidate wins 1 point every time it is ranked first (of a given voter).</li><li><strong>Veto :</strong> a candidate wins 1 point every time it is not ranked last.</li><li><strong>Borda :</strong> a candidate wins <i>n - 1</i> points every time it is ranked first, <i>n - 2</i> points every time it is ranked second, and so on. (<i>n</i> is the number of candidates)</li></ul>";
+var scoringDescription = "<p>We compute a number of points for each candidate as follows:</p><ul><li><strong>Borda :</strong> a candidate wins <i>n - 1</i> points every time it is ranked first, <i>n - 2</i> points every time it is ranked second, and so on. (<i>n</i> is the number of candidates)</li><li><strong>Plurality:</strong> a candidate wins 1 point every time it is ranked first (of a given voter).</li><li><strong>Veto :</strong> a candidate wins 1 point every time it is not ranked last.</li><li><strong>Approval:</strong> a candidate wins 1 point every time it is ranked above the specified threshold.</li></ul>";
+var scoringDescriptionPositiveNegative = "<p>We compute a number of points for each candidate as follows:</p><ul><li><strong>Borda-like:</strong> a candidate wins 2 points for each \"++\", 1 point for each \"+\", loses 1 point for each \"-\", and loses 2 points for each \"--\".</li><li><strong>Plurality:</strong> a candidates wins 1 point every time it is ranked first (of a given voter).</li><li><strong>Approval:</strong> a candidate wins 1 point every time it is ranked above the specified threshold.</li></ul>";
 var scoringShortDescription = "<p>Where each candidate gets some points according to its ranks...</p>";
+var bordaLabel = "Borda";
+var bordaLikeLabel = "Borda-like";
+var pluralityLabel = "Plurality";
+var vetoLabel = "Veto";
+var approvalLabel = "Approval";
+var approvalThresholdLabel = "Approval threshold: ";
+var scoringVectorLabel = "Scoring vector: ";
 
 var condorcetTitle = "Condorcet-based methods";
 var condorcetPicture = "images/dataViz/condorcet.png";

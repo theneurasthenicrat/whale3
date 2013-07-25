@@ -43,13 +43,26 @@ function vetoVector(nbCand) {
     return tab;
 }
 
-function bordaVector(nbCand) {
+function approvalVector(min, max, threshold) {
     var tab = new Array();
-    for (var i = 0; i < nbCand; i++) {
-	tab[i] = i;
+    for (var i = min; i <= max; i++) {
+    	tab[i - min] = (i >= threshold) ? 1 : 0;
     }
     return tab;
 }
+
+function identityVector(min, max) {
+    var tab = new Array();
+    for (var i = min; i <= max; i++) {
+    	tab[i - min] = i;
+    }
+    return tab;
+}
+
+function bordaVector(nbCand) {
+    return identityVector(0, nbCand - 1);
+}
+
 
 /////////////////////////////////////////////////////////////////////////
 // Condorcet procedures

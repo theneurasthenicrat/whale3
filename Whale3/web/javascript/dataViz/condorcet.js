@@ -1,4 +1,9 @@
 
+var divWidth;
+var divHeight;
+var force = d3.layout.force();
+
+
 var initCondorcet = function() {
     // Global variables required by Condorcet-based methods...
     condorcetMatrix = new Array();
@@ -47,16 +52,16 @@ var initCondorcet = function() {
 	.attr("id", "condorcetMatrix")
 	.attr("class", "dataViz");
 
-    width = $("#currentDataViz").width();
-    height = $("#currentDataViz").height();
+    divWidth = $("#currentDataViz").width();
+    divHeight = $("#currentDataViz").height();
 };
 
 var updateCondorcet = function() {
     var colorTab = ["#c31616", "#e1dd38", "#b8da40"];
     var condorcetSelect = document.getElementById("condorcetOrder");
     
-    updateGraph(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetGraphViz", width * 6 / 10, height * 0.9, {"top": 20, "bottom": 20, "right": 20, "left": 20}, colorTab);
-    updateMatrix(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetMatrix", width * 3 / 10, height * 0.9, {"top": 80, "bottom": 20, "right": 20, "left": 80}, colorTab);    
+    updateGraph(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetGraphViz", divWidth * 6 / 10, divHeight * 0.9, {"top": 20, "bottom": 20, "right": 20, "left": 20}, colorTab);
+    updateMatrix(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetMatrix", divWidth * 3 / 10, divHeight * 0.9, {"top": 80, "bottom": 20, "right": 20, "left": 80}, colorTab);    
 };
 
 function updateGraph(nodes, links, svg, globalWidth, globalHeight, margin, colorTab) {
@@ -130,19 +135,40 @@ function updateGraph(nodes, links, svg, globalWidth, globalHeight, margin, color
 		      nodes[k].index = i;
 		  });
 
+    console.log(d3.values(nodes));
+    
     links.forEach(function(link) {
 		      link.source = nodes[link.source];
 		      link.target = nodes[link.target];
 		  });
 
-    var force = d3.layout.force()
-	.nodes(d3.values(nodes))
+    force.stop();
+    
+    force
+    .nodes(d3.values(nodes))
 	.links(links)
 	.size([width, height])
-	.charge(-300)
-	.linkDistance(function(d) {return d3.scale.linear().domain([0, maxValue]).range([30, 2 * width / 3])(d.value); })
-//	.linkStrength(function(d) { return 1 - (d.value / maxValue); })
-	.on("tick", function(d) { return tick(d, link, node); })
+	//.charge(-30)
+	.linkDistance(function(d) {return d3.scale.linear().domain([0, maxValue]).range([width / 4, width / 2])(d.value); })
+	//.linkStrength(function(d) { return 1 - (d.value / maxValue); })
+	.on("tick", function(e) {
+		  var k = 6 * e.alpha;		  
+		  d3.values(nodes).forEach(function(o, i) {
+		    o.y -= d3.scale.linear().domain([0, maxValue]).range([0, 1])(o.value) * k;
+		    //o.x += i & 2 ? k : -k;
+		  });	 
+		  
+		  link
+			.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; })
+			.attr("marker-end", function (d) { return (d.value == 0 ? "none" : "url(#end)"); });
+		  
+		  node.attr("transform", function(d, i) { return "translate(" + d.x + "," + d.y + ")"; });
+	
+	})
+	//.on("tick", function(d) { return tick(d, link, node, nodes); })
 	.start();
 
     var link = graph.selectAll(".link")
@@ -153,6 +179,8 @@ function updateGraph(nodes, links, svg, globalWidth, globalHeight, margin, color
 	.style("stroke-dasharray", function (d) { return "2," + (d.value == 0 ? "2" : "0"); })
 	.style("stroke-width", function (d) { return (d.value == 0 ? 0.5 : strokeRange(d.value));});
 
+    link.exit().remove();
+    
     link.attr("marker-end", function (d) { return (d.value == 0 ? "none" : "url(#end)"); });
 
     var node = graph.selectAll(".node")
@@ -163,6 +191,8 @@ function updateGraph(nodes, links, svg, globalWidth, globalHeight, margin, color
 	.attr("class", "node")
 	.call(force.drag);
    
+    node.exit().remove();
+    
     nodeEnterG
 	.append("circle")
 	.attr("r", 8)
@@ -180,16 +210,21 @@ function updateGraph(nodes, links, svg, globalWidth, globalHeight, margin, color
 
 }
 
-function tick(d, link, node) {
+function tick(d, link, node, nodes) {
   link
 	.attr("x1", function(d) { return d.source.x; })
 	.attr("y1", function(d) { return d.source.y; })
 	.attr("x2", function(d) { return d.target.x; })
 	.attr("y2", function(d) { return d.target.y; })
 	.attr("marker-end", function (d) { return (d.value == 0 ? "none" : "url(#end)"); });
-
+  
+  var k = 6 * d.alpha;
+  node.y += k * nodes[node.datum().value];
+  node.x += k * nodes[node.datum().value];
+  console.log(node.datum().value);
+  
   node
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+      .attr("transform", function(d, i) { return "translate(" + d.x + "," + d.y + ")"; });
 }
 
 function mouseover(node, link, fillColor) {

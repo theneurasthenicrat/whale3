@@ -42,7 +42,7 @@ function displayThumbnails() {
     thumbs.append("div")
 	.attr("class", "dataVizPlaceholder")
 	.append("img")
-	.attr("src", function(d, i) {return d.title;})
+	.attr("alt", function(d, i) {return d.title;})
 	.attr("src", function(d, i) {return d.placeholderPicture;});
 
     var insideDivs = thumbs.append("div")
