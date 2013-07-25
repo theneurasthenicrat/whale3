@@ -121,6 +121,7 @@ class PollController extends AbstractPageController {
 
 	private def printClosingDate(poll: Poll): Unit = {
 		if (poll.isClosed) {
+			out.println(locale)
 			out.println(getMessage("messages.poll", "isAlreadyClosed", ((new SimpleDateFormat("EEEE d MMMM yyyy", locale)).format(poll.closingDate)) :: ((new SimpleDateFormat("hh:mm", locale)).format(poll.closingDate)) :: Nil))
 		} else {
 			out.println(getMessage("messages.poll", "pollClosesAt", ((new SimpleDateFormat("EEEE d MMMM yyyy", locale)).format(poll.closingDate)) :: ((new SimpleDateFormat("hh:mm", locale)).format(poll.closingDate)) :: Nil))

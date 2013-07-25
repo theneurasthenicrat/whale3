@@ -20,14 +20,14 @@ class ManageVotersController extends AbstractPageController with AdminRequired w
 					case e: ExistingUserException => error(getMessage("messages.admin", "existingUser", request.getParameter("voterEmail") :: Nil))
 				}
 			}
-      case REMOVE => {
-      	try {
-      		Users.deleteInvitedUser(request.getParameter("remove"), pollId)
-      	} catch {
-          case e: UserDeletionException => error(getMessage("messages.admin", "deletionProblem", Nil))      		
-      	}
-      }
-      case INVITATION_NOT_REQUIRED => {error(getMessage("messages.admin", "invitationNotRequired", Nil)); return}
+			case REMOVE => {
+				try {
+					Users.deleteInvitedUser(request.getParameter("remove"), pollId)
+				} catch {
+					case e: UserDeletionException => error(getMessage("messages.admin", "deletionProblem", Nil))
+				}
+			}
+			case INVITATION_NOT_REQUIRED => { error(getMessage("messages.admin", "invitationNotRequired", Nil)); return }
 			case UNDEFINED_POLL => error(getMessage("messages.poll", "unspecifiedPoll", Nil))
 			case _ => throw new Exception("Unknown step " + errorCode)
 		}
@@ -57,7 +57,7 @@ class ManageVotersController extends AbstractPageController with AdminRequired w
 				out.println("<td class=\"voterName\">" + v.nickName + "</td>")
 				out.println("<td class=\"voterEMail\">" + v.eMail + "</td>")
 				out.println("<td class=\"voterCertificate\">" + v.certificate + "</td>")
-				out.println("<td class=\"removeVoter\"><a href=\"manageVoters.do?id=" + poll.pollId + "&remove=" + v.userId + "\"><span class=\"icon icon-trash_can\"></span></a></td>")
+				out.println("<td class=\"removeVoter\">" + (if (Users.hasAlreadyVoted(v.userId, poll.pollId)) (getMessage("messages.admin", "hasVoted", Nil)) else ("<a href=\"manageVoters.do?id=" + poll.pollId + "&remove=" + v.userId + "\"><span class=\"icon icon-trash_can\"></span></a></td>")))
 				out.println("</tr>")
 			})
 		}

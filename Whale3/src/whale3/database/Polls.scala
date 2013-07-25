@@ -459,7 +459,7 @@ object Polls {
 		val connec: java.sql.Connection = Connection.getConnection()
 		try {
 			val stmt: Statement = connec.createStatement()
-			val result: ResultSet = stmt.executeQuery("SELECT * FROM InvitedUsers WHERE pollId = '" + pollId + "' AND certificate = '" + certificate + "';")
+			val result: ResultSet = stmt.executeQuery("SELECT * FROM InvitedUsers WHERE pollId = '" + pollId + "' AND certificate = '" + encode(certificate) + "';")
 			connec.commit()
 			val hasNext: Boolean = result.next()
 			result.close()

@@ -30,8 +30,8 @@ CREATE TABLE Users (
 
 CREATE TABLE RegisteredUsers (
        userId VARCHAR(10) PRIMARY KEY REFERENCES Users(userId),
-       eMail VARCHAR(30) UNIQUE,
-       password CHAR(40)
+       eMail VARCHAR(80) UNIQUE,
+       password CHAR(80)
 );
 
 CREATE TABLE Polls (
@@ -48,8 +48,8 @@ CREATE TABLE Polls (
 
 CREATE TABLE InvitedUsers (
        userId VARCHAR(10) PRIMARY KEY,
-       eMail VARCHAR(30),
-       certificate CHAR(32),
+       eMail VARCHAR(80),
+       certificate CHAR(80),
        pollId VARCHAR(10) REFERENCES Polls(pollId),
        FOREIGN KEY (userId) REFERENCES Users(userId) ON DELETE CASCADE
 );

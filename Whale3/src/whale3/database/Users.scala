@@ -166,6 +166,24 @@ object Users {
 		}
 	}
 
+	def hasAlreadyVoted(userId: String, pollId: String): Boolean = {
+    val connec: java.sql.Connection = Connection.getConnection()
+    try {
+      val stmt: Statement = connec.createStatement()
+      val result: ResultSet = stmt.executeQuery("SELECT * FROM Votes WHERE pollId = '" + pollId + "' AND userId = '" + userId + "';")
+      val hasVoted: Boolean = result.next()
+      connec.commit()
+      result.close()
+      stmt.close()
+      hasVoted
+    } catch {
+      case ex: Exception => {
+        connec.rollback()
+        throw ex
+      }
+    }
+	}
+	
 	/**
 	 * Tries to log in as a registered user
 	 * @param eMail the user's e-mail

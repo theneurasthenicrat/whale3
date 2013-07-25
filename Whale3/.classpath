@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="/home/sylvain/git/whale3.old/lib/json-taglib-0.4.1.jar"/>
 	<classpathentry kind="lib" path="/home/sylvain/git/whale3.old/lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="/home/sylvain/git/whale3.old/lib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="/home/sylvain/git/whale3/Whale3/web/WEB-INF/lib/org.apache.commons.codec_1.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

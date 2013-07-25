@@ -174,7 +174,7 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
 
 
 // Append all these beautiful functions to the list of data visualization charts available
-graphs.strictRanks[graphs.strictRanks.length] = {
+runoffViz = {
     "title": runoffTitle,  
     "placeholderPicture": runoffPicture,	    
     "initFunction": initRunoff,
@@ -183,4 +183,8 @@ graphs.strictRanks[graphs.strictRanks.length] = {
     "shortDescription": runoffShortDescription
 };
 
+graphs.strictRanks[graphs.strictRanks.length] = runoffViz;
+graphs.positiveNegative[graphs.positiveNegative.length] = runoffViz;
+graphs.ranks[graphs.ranks.length] = runoffViz;
+graphs.numbers[graphs.numbers.length] = runoffViz;
 

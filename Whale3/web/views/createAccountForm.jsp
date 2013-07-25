@@ -6,7 +6,7 @@
 
 <form method="POST" action="createAccount.do">
   <div class="form">
-    <h1><i class="icon icon-user whaleicon"></i> <fmt:message key="accountCreationTitle"/></h1>
+    <h1><span class="icon icon-user whaleicon"></span> <fmt:message key="accountCreationTitle"/></h1>
     <div>
       <label><fmt:message key="name"/></label> <input type="text" required="required" name="nickName" value='<%= request.getParameter("nickName") != null ? request.getParameter("nickName") : "" %>'/>
     </div>

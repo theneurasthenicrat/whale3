@@ -401,13 +401,19 @@ function updateMatrix(nodes, arcSet, svg, globalWidth, globalHeight, margin, col
 
 
 // Append all these beautiful functions to the list of data visualization charts available
-graphs.strictRanks[graphs.strictRanks.length] = {
-    "title": condorcetTitle,  
-    "placeholderPicture": condorcetPicture,	    
-    "initFunction": initCondorcet,
-    "updateFunction": updateCondorcet,
-    "description": condorcetDescription,
-    "shortDescription": condorcetShortDescription
+condorcetViz = {
+		"title": condorcetTitle,  
+		"placeholderPicture": condorcetPicture,	    
+		"initFunction": initCondorcet,
+		"updateFunction": updateCondorcet,
+	    "description": condorcetDescription,
+	    "shortDescription": condorcetShortDescription
 };
+
+graphs.strictRanks[graphs.strictRanks.length] = condorcetViz;
+graphs.positiveNegative[graphs.positiveNegative.length] = condorcetViz;
+graphs.ranks[graphs.ranks.length] = condorcetViz;
+graphs.numbers[graphs.numbers.length] = condorcetViz;
+
 
 
