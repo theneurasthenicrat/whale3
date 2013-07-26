@@ -46,14 +46,12 @@ var updateRunoff = function() {
 function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTab) {
     // Some useful measures
     var nodeRadius = 10;
-    var width = Math.min(globalWidth - margin.right - margin.left, globalHeight - margin.top - margin.bottom);
-    var height = Math.min(globalWidth - margin.right - margin.left, globalHeight - margin.top - margin.bottom);
+    var width = globalWidth - margin.right - margin.left;
+    var height = globalHeight - margin.top - margin.bottom;
     var xLeft = margin.left;
     var xRight = globalWidth - margin.right;
     var yBottom = globalHeight - margin.bottom;
     var yTop = margin.top;
-
-    console.log(rounds);
     
     // The default color ranges
     var color = d3.scale.linear()

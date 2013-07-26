@@ -20,3 +20,9 @@ var runoffTitle = "Méthodes à plusieurs tours";
 var runoffPicture = "images/dataViz/runoff.png";
 var runoffDescription = "<p>Ces méthodes fonctionnent par élimination successive de candidats. À chaque étape, les voix pour les candidats éliminés sont reportés sur les autres.</p><ul><li><strong>Single Transferrable Vote :</strong> À chaque tour, les candidats sont classés selon leur score de pluralité (voir méthodes de calcul de scores). S'il y a des <i>ex-aequo</i>, on considère en plus le score de Borda. À chaque tour, le pire candidat est éliminé.</li><li><strong>Scrutin majoritaire à deux tours :</strong> On garde pour le second tour les candidats ayant le plus haut score de pluralité (départage aléatoire des <i>ex-aequo</i>). Au second tour, on élit le candidat ayant le plus haut score de pluralité.</li></ul>";
 var runoffShortDescription = "<p>Où l'on élimine les candidats un tour après l'autre...</p>";
+
+var randomTournamentsTitle = "Tournois aléatoires";
+var randomTournamentsPicture = "images/dataViz/randomTournaments.png";
+var randomTournamentsDescription = "<p>Cette méthode fonctionne exactement à la manière d'un tournoi sportif par élimination. À chaque tour, les candidats s'affrontent par paire. Le meilleur de chaque paire (celui qui est préféré par une majorité de votants) va au tour suivant. Deux candidats <i>ex-aequo</i> à un tour donné sont départagés aléatoirement. Le tirage initial du premier tour est aléatoire.</p>";
+var randomTournamentsShortDescription = "<p>Où l'on simule un tournoi sportif entre candidats...</p>";
+var shuffle = "Nouveau tirage aléatoire au premier tour"

@@ -260,57 +260,90 @@ function eliminate(candidates, votes, numberToEliminate) {
     };    
 }
 
-
-
-// function nextRound(candidates, votes, rankingFunction) {
-//     var permutationArray = d3.range(0, candidates.length);
-//     // We build the permutation array by using the rankingFunction
-//     permutationArray.sort(rankingFunction);
-//     var newCandidates = d3.permute(candidates, permutationArray);
-//     var newVotes = votes.map(function(v, i) {
-// 				 var current = d3.permute(v.values, permutationArray);
-// 				 var lastVal = current[current.length - 1];
-// 				 return {"values": current.map(function(val) {return val > lastVal ? val - 1 : val;})};
-// 			     });
-//     // Removes the last candidate (i.e the worst one)
-//     newCandidates.pop();
-//     newVotes.forEach(function(v) {
-// 			 v.values.pop();
-// 			 });
-//     return {
-// 	"candidates": newCandidates,
-// 	"votes": newVotes
-//     };
-// }
-// 
-// 
-// function eliminate(candidates, votes, candidate) {
-//     var cIndex = -1;
-//     // Retrieves the candidate index
-//     for (k = 0; k < candidates.length && cIndex == -1; k++) {
-// 	if (candidates[k] == candidate) cIndex = k;
-//     }
-//     // Removes the candidate from the candidate list
-//     candidates = candidates.splice(cIndex, 1);
-//     
-//     // Now we will update the voters preferences
-//     votes.forEach(function(v, i) {
-// 		      // Retrieves the current candidate value
-// 		      var cVal = v.values[cIndex];
-// 		      // Removes the candidate value from the list
-// 		      votes[i].values = votes[i].values.splice(cIndex, 1);
-// 		      // Now we update each value greater than cVal
-// /*		      votes[i].values.forEach(function(w, j) {
-// 						  if (w > cVal) {
-// 						      votes[i].values[j] = w - 1;
-// 						  }
-// 					      });*/
-// 		  });
-// }
-// 
-
 /////////////////////////////////////////////////////////////////////////
 
+
+/////////////////////////////////////////////////////////////////////////
+// Random tournaments
+
+function transformVotes(candidates, votes) {
+	var newVotes = new Array();
+	votes.forEach(function(v, i) {
+		newVotes[i] = new Object();
+		v.values.forEach(function(val, j){
+			newVotes[i][candidates[j]] = val;			
+		})
+	});
+	return newVotes;
+}
+
+
+function runTournament(candidates, votes) {
+	var rounds = new Array();
+	rounds[0] = {"candidates": deepClone(candidates), "contests": []};
+	while (rounds[rounds.length - 1].candidates.length > 1) {
+		rounds[rounds.length] = nextTournamentRound(rounds[rounds.length - 1].candidates, votes);
+	}
+	return rounds;
+}
+
+/* 
+ * Candidates is the array of candidates names
+ * Votes is an array of the form [{candidate -> vote}]
+ */
+function nextTournamentRound(candidates, votes) {
+	var n = candidates.length;
+	var log2 = Math.log(n) / Math.log(2);
+	// Number of candidates that won't play during this round (just because the 
+	// global number of candidates is not a power of 2)
+	var x = Math.pow(2, Math.floor(log2)) == n ? 0 : (Math.pow(2, Math.floor(log2) + 1) - n);  
+	
+	var nextRoundCandidates = new Array();
+	var currentRoundContests = new Array();
+	
+	for (var i = 0; i < n - x; i += 2) {
+		nextRoundCandidates[i / 2] = duelWinner(candidates[i], candidates[i+1], votes);
+		currentRoundContests[i / 2] = [candidates[i], candidates[i + 1]];
+	}
+	for (; i < n; i++) {
+		nextRoundCandidates[nextRoundCandidates.length] = candidates[i];
+		currentRoundContests[currentRoundContests.length] = [candidates[i]];
+	}
+		
+	return {"candidates": nextRoundCandidates, "contests": currentRoundContests};
+}
+
+/*
+ * A duel between two candidates. Based on majority count. Ties randomly broken.
+ * 1 point for each win, -1 for each defeat, tieScore for each tie (0 by default).
+ */
+function duelWinner(c1, c2, votes, tieScore) {
+	tieScore = (typeof tieScore !== 'undefined') ? tieScore : 0;
+	var c1Score = 0;
+	var c2Score = 0;
+	votes.forEach(function(v) {
+		if (v[c1] > v[c2]) {
+			c1Score += 1;
+			c2Score -= 1;
+		} else {
+			if (v[c2] > v[c1]) {
+				c1Score -= 1;
+				c2Score += 1;				
+			} else {
+				c1Score += tieScore;
+				c2Score += tieScore;								
+			}
+		}
+	});
+	
+	// Random tie breaking
+	if (c1Score == c2Score) {
+		return (Math.random() > 0.5 ? c2 : c1);
+	}
+	return (c1Score > c2Score ? c1 : c2);
+}
+
+/////////////////////////////////////////////////////////////////////////
 
 
 

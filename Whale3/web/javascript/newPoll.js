@@ -46,7 +46,11 @@ function displayRanks(select) {
 
 function showNextOnTab(event, number) {
     if (event.keyCode == 9) {
-	add(number + 1);
+/*    	if (event.preventDefault) {
+    		event.preventDefault();
+    	}*/    	
+    	add(number + 1);
+    	//event.returnValue = false;
     }
     if (event.keyCode == 8 && number != 0 && document.getElementById("candidateInput" + number).value == "") {
 	remove(number);

@@ -20,3 +20,9 @@ var runoffTitle = "Run-off methods";
 var runoffPicture = "images/dataViz/runoff.png";
 var runoffDescription = "<p>These methods successively eliminate candidates. After each round, the votes for each eliminated candidates are properly transfered to the remaining ones.</p><ul><li><strong>Single Transferrable Vote:</strong> At each round, the candidates are ranked according to their plurality score (see the scoring methods). Ties are broken according their Borda score. After each round, the worst candidate is eliminated.</li><li><strong>Two-rounds majority:</strong> We keep for the second round the candidates having the highest plurality score (ties randomly broken). The winner is the second round candidate having the highest plurality score (once again, ties randomly broken).</li></ul>";
 var runoffShortDescription = "<p>Where candidates are successively eliminated...</p>";
+
+var randomTournamentsTitle = "Random tournaments";
+var randomTournamentsPicture = "images/dataViz/randomTournaments.png";
+var randomTournamentsDescription = "<p>This method simulates a sport championship. At each round, the candidates fight by pairs. The best candidate of each pair (the one who is prefered by a majority of voters) goes to the next round. Ties are randomly broken. Fights for the initial round are randomly chosen.</p>";
+var randomTournamentsShortDescription = "<p>Où l'on simule un tournoi sportif entre candidats...</p>";
+var shuffle = "Shuffle candidates for the first round";
