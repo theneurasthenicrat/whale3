@@ -89,8 +89,9 @@ function updateRTViz(rounds, svg, globalWidth, globalHeight, margin) {
     .attr("class", "contests");
     
     graph.selectAll("line").remove();
+    graph.selectAll(".score").remove();
 //    graph.selectAll(".player").remove();
-    
+     
     enteringContests
     .insert("line")
     .attr("x1", function(d, j, i) {return xLeft + i * stepRound;})
@@ -103,31 +104,55 @@ function updateRTViz(rounds, svg, globalWidth, globalHeight, margin) {
     enteringContests
     .insert("line")
     .attr("x1", function(d, j, i) {return xLeft + (i - 0.5) * stepRound;})
-    .attr("y1", function(d, j, i) {return yTop + ys[i - 1][d[0]];})
+    .attr("y1", function(d, j, i) {return yTop + ys[i - 1][d[0].candidate];})
     .attr("x2", function(d, j, i) {return xLeft + (i - 1) * stepRound;})
-    .attr("y2", function(d, j, i) {return yTop + ys[i - 1][d[0]];})
+    .attr("y2", function(d, j, i) {return yTop + ys[i - 1][d[0].candidate];})
     .attr("stroke", "#ccc")
     .attr("class", function(d, j, i) {return "link-" + rounds[i].candidates[j];});
 
     enteringContests
     .insert("line")
     .attr("x1", function(d, j, i) {return xLeft + (i - 0.5) * stepRound;})
-    .attr("y1", function(d, j, i) {return yTop + ys[i - 1][d.length > 1 ? d[1] : d[0]];})
+    .attr("y1", function(d, j, i) {return yTop + ys[i - 1][d.length > 1 ? d[1].candidate : d[0].candidate];})
     .attr("x2", function(d, j, i) {return xLeft + (i - 1) * stepRound;})
-    .attr("y2", function(d, j, i) {return yTop + ys[i - 1][d.length > 1 ? d[1] : d[0]];})
+    .attr("y2", function(d, j, i) {return yTop + ys[i - 1][d.length > 1 ? d[1].candidate : d[0].candidate];})
     .attr("stroke", "#ccc")
     .attr("class", function(d, j, i) {return "link-" + rounds[i].candidates[j];});
     
     enteringContests
     .insert("line")
     .attr("x1", function(d, j, i) {return xLeft + (i - 0.5) * stepRound;})
-    .attr("y1", function(d, j, i) {return yTop + ys[i - 1][d[0]];})
+    .attr("y1", function(d, j, i) {return yTop + ys[i - 1][d[0].candidate];})
     .attr("x2", function(d, j, i) {return xLeft + (i - 0.5) * stepRound;})
-    .attr("y2", function(d, j, i) {return yTop + ys[i - 1][d.length > 1 ? d[1] : d[0]];})
+    .attr("y2", function(d, j, i) {return yTop + ys[i - 1][d.length > 1 ? d[1].candidate : d[0].candidate];})
     .attr("stroke", "#ccc")
     .attr("class", function(d, j, i) {return "link-" + rounds[i].candidates[j];});
 
+    enteringContests
+    .insert("text")
+    .attr("fill", "#fff")
+    .attr("x", function(d, j, i) {return xLeft + (i - 0.5) * stepRound;})
+    .attr("y", function(d, j, i) {return yTop + ys[i - 1][d[0].candidate];})
+    .attr("class", "score")
+    .text(function(d, j, i) {return d[0].score;})
+    .attr("text-anchor", "end") // text-align: right
+    .attr("dy", "-3px")
+    .transition().duration(1500)
+    .attr("fill", function(d) {return strokeColor[d[0].candidate];});
 
+    enteringContests
+    .insert("text")
+    .attr("fill", "#fff")
+    .attr("x", function(d, j, i) {return xLeft + (i - 0.5) * stepRound;})
+    .attr("y", function(d, j, i) {return yTop + ys[i - 1][d.length > 1 ? d[1].candidate : d[0].candidate];})
+    .attr("text-anchor", "end") // text-align: right
+    .attr("dy", "15px")
+    .text(function(d, j, i) {return d.length > 1 ? d[1].score : d[0].score;})
+    .attr("class", "score")
+    .transition().duration(1500)
+    .attr("fill", function(d) {return strokeColor[d.length > 1 ? d[1].candidate : d[0].candidate];});
+    
+    
     // Then we draw the players themselves... (as circles)
     var roundGroups = graph.selectAll(".roundGroup")
     .data(rounds);
@@ -158,7 +183,7 @@ function updateRTViz(rounds, svg, globalWidth, globalHeight, margin) {
     playerLabels.enter()
     .append("text")
     .attr("class", "playerLabels")
-    .attr("text-anchor", "middle") // text-align: middle
+    .attr("text-anchor", "middle") // text-align: center
     .attr("dy", "-1em");
 
     playerNodes.exit().remove();
@@ -199,10 +224,10 @@ function computeYs(rounds, initStepPlayers) {
 				// If the candidate results from a duel...
 				if (r.contests[j].length > 1) {
 					// Place it at the middle of the two former candidates
-					ys[i][c] = (ys[i - 1][r.contests[j][0]] + ys[i - 1][r.contests[j][1]]) / 2; 					
+					ys[i][c] = (ys[i - 1][r.contests[j][0].candidate] + ys[i - 1][r.contests[j][1].candidate]) / 2; 					
 				} else { // Otherwise...
 					// Place it exactly aligned with the corresponding former candidate
-					ys[i][c] = ys[i - 1][r.contests[j][0]];					
+					ys[i][c] = ys[i - 1][r.contests[j][0].candidate];					
 				}
 			});
 		}

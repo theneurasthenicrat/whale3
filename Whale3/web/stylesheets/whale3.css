@@ -27,7 +27,7 @@ h2 {
 	font-weight: bold;
 }
 
-i, emph {
+i,emph {
 	font-family: 'Lato', Verdana, Arial, Sans-Serif;
 	font-style: italic;
 }
@@ -463,10 +463,10 @@ span.pollMenuDesc {
 }
 
 .extendedForm input[type="text"] {
-    width: 300px;
-    border: 1px solid #aaa;
-    padding-left: 5px;
-    padding-right: 5px;
+	width: 300px;
+	border: 1px solid #aaa;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .extendedForm input[type="email"] {
@@ -504,27 +504,26 @@ span.pollMenuDesc {
 }
 
 a button {
-    height: 30px;
-    border: 1px solid #aaa;
-    background: -moz-linear-gradient(top, #eee 0%, #ddd 100%);
-    /* firefox */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee),
-        color-stop(100%, #ddd) ); /* webkit */
-    cursor: pointer;
-    display: block;
-    margin: 20px 0px;
-    font-weight: 900;
-    color: #666;
-    float: left;
-    text-align: center;
-    text-decoration: none;
+	height: 30px;
+	border: 1px solid #aaa;
+	background: -moz-linear-gradient(top, #eee 0%, #ddd 100%);
+	/* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee),
+		color-stop(100%, #ddd) ); /* webkit */
+	cursor: pointer;
+	display: block;
+	margin: 20px 0px;
+	font-weight: 900;
+	color: #666;
+	float: left;
+	text-align: center;
+	text-decoration: none;
 }
 
 a button:hover {
-    border: 1px solid #888;
-    box-shadow: 0px 0px 2px #888;
+	border: 1px solid #888;
+	box-shadow: 0px 0px 2px #888;
 }
-
 
 /********************************************************/
 /* NEW POLL                                             */
@@ -1084,28 +1083,129 @@ td.poll-0percent {
 /*******************************************************/
 /* ADMIN POLL                                          */
 /*******************************************************/
-
-
-
 .bigMenu {
-    display: block;
-    padding: 10px 10px 10px 90px;
-    color: #999;
-    text-decoration: none;
+	display: block;
+	padding: 10px 10px 10px 90px;
+	color: #999;
+	text-decoration: none;
 }
 
 .bigMenu:hover {
-    background: #eee;
+	background: #eee;
 }
 
 .bigMenu:before {
+	font-family: 'mfg_labs_iconsetregular';
+	font-style: normal;
+	speak: none;
+	font-weight: normal;
+	font-size: 3em;
+	webkit-font-smoothing: antialiased;
+	color: #999;
+	width: 90px;
+	text-align: center;
+	margin-left: -90px;
+	display: block;
+	float: left;
+}
+
+#manageVoters:before {
+	content: "\f064";
+}
+
+#setClosingDate:before {
+	content: "\23f1";
+}
+
+/********************************************************/
+/* INDEX                                                */
+/********************************************************/
+#indexHeader {
+	display: block;
+	margin: 0px;
+	width: 100%;
+	height: 150px;
+	background: #ddd;
+	position: absolute;
+	z-index: 10;
+	top: 0px;
+	left: 0px;
+}
+
+#indexMain {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	text-align: left;
+	background: #444;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#indexMainContent {
+	position: absolute;
+	top: 150px;
+	left: 0px;
+	margin: 0px;
+	padding: 20px;
+	color: #ccc;
+	line-height: 30px;
+	width: 50%;
+	font-size: 16px;
+}
+
+#indexMainContent h1 {
+    font-family: "Linux Libertine", Serif;
+	font-size: 64px;
+	color: #ddd;
+	font-weight: normal;
+	margin-bottom: 100px;
+	height: 50px;
+	display: block;
+}
+
+#indexMainContent a {
+    color: #ffbc47;
+    text-decoration: none;
+}
+
+#indexMainContent a:hover {
+    color: #ffa200;
+    text-decoration: none;
+}
+
+#indexMainMenu {
+	display: block;
+	position: absolute;
+	top: 350px;
+	right: 0%;
+	width: 30%;
+	border-left: 1px solid #aaa;
+}
+
+.bigIndexMenu {
+    display: block;
+    padding: 10px 10px 10px 90px;
+    color: #aaa;
+    text-decoration: none;
+}
+
+.bigIndexMenu:hover {
+    background: #666;
+}
+
+.bigIndexMenu:before {
     font-family: 'mfg_labs_iconsetregular';
     font-style: normal;
     speak: none;
     font-weight: normal;
     font-size: 3em;
     webkit-font-smoothing: antialiased;
-    color: #999;
+    color: #aaa;
     width: 90px;
     text-align: center;
     margin-left: -90px;
@@ -1113,11 +1213,30 @@ td.poll-0percent {
     float: left;
 }
 
-#manageVoters:before {
-    content: "\f064";
+
+.bigIndexMenu span.label {
+    font-family: "Linux Libertine", Serif;
+	display: block;
+    width: 100%;
+    font-size: 32px;
+    padding: 5px 0px 5px 0px;
+    font-weight: normal;
+    border-bottom: 0px; 
 }
 
-#setClosingDate:before {
-    content: "\23f1";
+.bigIndexMenu span.description {
+    font-size: 14px;
+}
+	
+#indexTryIt:before {
+    content: "\270F";
+}
+
+#indexCreatePoll:before {
+    content: "\F4C5";
+}
+
+#indexConnect:before {
+    content: "\F061";
 }
 

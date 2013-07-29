@@ -11,6 +11,11 @@ import javax.servlet.http.HttpSession
 class IndexController extends AbstractPageController {
   override def menu(): Boolean = false
 
+  override def before(): Unit = {
+    request.setAttribute("title", title)
+    request.setAttribute("menu", menu)
+  }
+
   override def main(): Unit = {
       request.getRequestDispatcher("views/index.jsp").include(request, response)
   }

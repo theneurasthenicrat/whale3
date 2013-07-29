@@ -302,12 +302,14 @@ function nextTournamentRound(candidates, votes) {
 	var currentRoundContests = new Array();
 	
 	for (var i = 0; i < n - x; i += 2) {
-		nextRoundCandidates[i / 2] = duelWinner(candidates[i], candidates[i+1], votes);
-		currentRoundContests[i / 2] = [candidates[i], candidates[i + 1]];
+		var duelResult = duel(candidates[i], candidates[i+1], votes);
+		console.log(duelResult);
+		nextRoundCandidates[i / 2] = duelResult.winner;
+		currentRoundContests[i / 2] = [{"candidate": candidates[i], "score": duelResult.scores[0]}, {"candidate": candidates[i+1], "score": duelResult.scores[1]}];
 	}
 	for (; i < n; i++) {
 		nextRoundCandidates[nextRoundCandidates.length] = candidates[i];
-		currentRoundContests[currentRoundContests.length] = [candidates[i]];
+		currentRoundContests[currentRoundContests.length] = [{"candidate": candidates[i]}];
 	}
 		
 	return {"candidates": nextRoundCandidates, "contests": currentRoundContests};
@@ -317,7 +319,7 @@ function nextTournamentRound(candidates, votes) {
  * A duel between two candidates. Based on majority count. Ties randomly broken.
  * 1 point for each win, -1 for each defeat, tieScore for each tie (0 by default).
  */
-function duelWinner(c1, c2, votes, tieScore) {
+function duel(c1, c2, votes, tieScore) {
 	tieScore = (typeof tieScore !== 'undefined') ? tieScore : 0;
 	var c1Score = 0;
 	var c2Score = 0;
@@ -338,9 +340,9 @@ function duelWinner(c1, c2, votes, tieScore) {
 	
 	// Random tie breaking
 	if (c1Score == c2Score) {
-		return (Math.random() > 0.5 ? c2 : c1);
+		return {"scores": [c1Score, c2Score], "winner": (Math.random() > 0.5 ? c2 : c1)};
 	}
-	return (c1Score > c2Score ? c1 : c2);
+	return {"scores": [c1Score, c2Score], "winner": (c1Score > c2Score ? c1 : c2)};
 }
 
 /////////////////////////////////////////////////////////////////////////
