@@ -10,4 +10,6 @@
             url="(put the db URL in JDBC format here)"
             maxActive="8"
             maxIdle="4"/>
+            
+   <Environment name="encryptionKey" type="java.lang.String" value="(put your AES encryption key here)" override="false"/>
 </Context>

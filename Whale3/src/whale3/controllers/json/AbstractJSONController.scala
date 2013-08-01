@@ -36,6 +36,7 @@ abstract class AbstractJSONController extends HttpServlet {
     request = req
     response = res
     response.setContentType("application/json; charset=utf-8")
+    response.addHeader("Access-Control-Allow-Origin", "*")
     request.setCharacterEncoding("UTF-8")
     response.setCharacterEncoding("UTF-8")
     before()

@@ -146,4 +146,11 @@
     <url-pattern>/setLanguage.do</url-pattern>
   </servlet-mapping>
 
+	
+
+  <env-entry>
+    <env-entry-name>encryptionKey</env-entry-name>
+    <env-entry-value>ivwx7561u826c8i0</env-entry-value>
+    <env-entry-type>java.lang.String</env-entry-type>
+  </env-entry>
 </web-app>

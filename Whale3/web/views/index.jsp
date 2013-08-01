@@ -20,6 +20,7 @@
 
 <body>
 	<div id="indexHeader">
+	   <img id="logo" alt="" src="images/whale-logo-dark.png"></img>
 		<div class="flags">
 			<span class="flagbutton"> <a href="setLanguage.do?language=fr">
 					<img class="flag" src="images/french.png" alt="french flag" />
@@ -43,7 +44,7 @@
 			</p>
 		</div>
 		<div id="indexMainMenu">
-			<a class="bigIndexMenu" id="indexTryIt" href="poll.do?id=0"> <span
+			<a class="bigIndexMenu" id="indexTryIt" href="poll.do?id=1"> <span
 				class="label"><fmt:message key="tryItLabel" /></span> <span
 				class="description"><fmt:message key="tryItDescription" /></span>
 			</a>

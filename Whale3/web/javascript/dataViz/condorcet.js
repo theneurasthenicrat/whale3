@@ -44,11 +44,15 @@ var initCondorcet = function() {
     d3.select("#currentDataViz").append("div")
 	.attr("class", "dataVizInsideDiv")
 	.append("svg")
+	.style("display", "table-cell")
+	.style("vertical-align", "top")
 	.attr("id", "condorcetGraphViz")
 	.attr("class", "dataViz");
 
     d3.select("#currentDataViz div.dataVizInsideDiv")
 	.append("svg")
+	.style("display", "table-cell")
+	.style("vertical-align", "top")
 	.attr("id", "condorcetMatrix")
 	.attr("class", "dataViz");
 
@@ -60,18 +64,19 @@ var updateCondorcet = function() {
     var colorTab = ["#c31616", "#e1dd38", "#b8da40"];
     var condorcetSelect = document.getElementById("condorcetOrder");
     
-    updateGraph(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetGraphViz", divWidth * 6 / 10, divHeight * 0.9, {"top": 20, "bottom": 20, "right": 20, "left": 20}, colorTab);
-    updateMatrix(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetMatrix", divWidth * 3 / 10, divHeight * 0.9, {"top": 80, "bottom": 20, "right": 20, "left": 80}, colorTab);    
+    updateGraph(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetGraphViz", divWidth * 0.6, divHeight * 0.9, {"top": 20, "bottom": 20, "right": 20, "left": 20}, colorTab);
+    updateMatrix(deepClone(condorcetNodes[condorcetSelect.selectedIndex]), deepClone(condorcetArcSet), "condorcetMatrix", divWidth * 0.3, divHeight * 0.9, {"top": 80, "bottom": 20, "right": 20, "left": 80}, colorTab);    
 };
 
 function updateGraph(nodes, links, svg, globalWidth, globalHeight, margin, colorTab) {
     // Some useful measures
     var nodeRadius = 10;
-    var width = Math.min(globalWidth - margin.right - margin.left, globalHeight - margin.top - margin.bottom);
-    var height = Math.min(globalWidth - margin.right - margin.left, globalHeight - margin.top - margin.bottom);
+    var globalSize = Math.min(globalWidth, globalHeight);
+    var width = globalSize - margin.right - margin.left;
+    var height = globalSize - margin.top - margin.bottom;
     var xLeft = margin.left;
-    var xRight = globalWidth - margin.right;
-    var yBottom = globalHeight - margin.bottom;
+    var xRight = globalSize - margin.right;
+    var yBottom = globalSize - margin.bottom;
     var yTop = margin.top;
 
     var maxValue = d3.max(links, function(d) { return d.value; });
@@ -94,8 +99,8 @@ function updateGraph(nodes, links, svg, globalWidth, globalHeight, margin, color
     // Adjust the width and height of the container
     graph.transition()
 	.duration(750)
-        .attr("width", globalWidth)
-        .attr("height", globalHeight);
+        .attr("width", globalSize)
+        .attr("height", globalSize);
 
     // The graph arrow markers (to be added just once)
     var defs = graph.selectAll("defs")
@@ -266,11 +271,12 @@ function getPositions(labels, xLeft, yBottom, width, height) {
 
 function updateMatrix(nodes, arcSet, svg, globalWidth, globalHeight, margin, colorTab) {
     var nodeRadius = 10;
-    var width = Math.min(globalWidth - margin.right - margin.left, globalHeight - margin.top - margin.bottom);
-    var height = Math.min(globalWidth - margin.right - margin.left, globalHeight - margin.top - margin.bottom);
+    var globalSize = Math.min(globalWidth, globalHeight);
+    var width = globalSize - margin.right - margin.left;
+    var height = globalSize - margin.top - margin.bottom;
     var xLeft = margin.left;
-    var xRight = globalWidth - margin.right;
-    var yBottom = globalHeight - margin.bottom;
+    var xRight = globalSize - margin.right;
+    var yBottom = globalSize - margin.bottom;
     var yTop = margin.top;
 
     var nodeKeys = d3.keys(nodes);
@@ -309,8 +315,8 @@ function updateMatrix(nodes, arcSet, svg, globalWidth, globalHeight, margin, col
 
     table.transition()
 	.duration(750)
-        .attr("width", globalWidth)
-        .attr("height", globalHeight);
+        .attr("width", globalSize)
+        .attr("height", globalSize);
 
     var rowCandidateCells = table.selectAll(".rowCandidate")
 	.data(nodeValues);

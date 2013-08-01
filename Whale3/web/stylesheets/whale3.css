@@ -1240,3 +1240,12 @@ td.poll-0percent {
     content: "\F061";
 }
 
+#logo {
+	display: block;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+	
+	
+}

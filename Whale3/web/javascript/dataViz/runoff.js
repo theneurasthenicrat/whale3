@@ -43,9 +43,13 @@ var updateRunoff = function() {
     updateRunoffViz(deepClone(runoffVector[runoffSelect.selectedIndex]), "runoffViz", divWidth * 4 / 5, divHeight * 0.9, {"top": 20, "bottom": 20, "right": 20, "left": 20}, colorTab);
 };
 
-function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTab) {
+function updateRunoffViz(rounds, svg, tmpGlobalWidth, tmpGlobalHeight, margin, colorTab) {
     // Some useful measures
+	var stepRound = 155;
+    var stepElement = 50;
     var nodeRadius = 10;
+    var globalWidth = Math.max(tmpGlobalWidth, margin.left + margin.right + (rounds.length + 1) * stepRound);
+    var globalHeight = Math.max(tmpGlobalHeight, margin.top + margin.bottom + (rounds[0].candidates.length + 1) * stepElement);
     var width = globalWidth - margin.right - margin.left;
     var height = globalHeight - margin.top - margin.bottom;
     var xLeft = margin.left;
@@ -69,7 +73,9 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
 	.duration(750)
         .attr("width", globalWidth)
         .attr("height", globalHeight);
-
+    
+    graph.selectAll(".round").remove();
+    
     var roundsElmts = graph.selectAll(".round")
 	.data(rounds, function(d) {return d.candidates;});
     
@@ -85,7 +91,7 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
 	.attr("x", 0)
 	.attr("y", 0)
 	.attr("width", "150px")
-	.attr("height", (rounds[0].candidates.length + 1) * 50)
+	.attr("height", (rounds[0].candidates.length + 1) * stepElement)
 	.attr("fill", function(d, i) {return grayScale(i / (rounds.length - 1));})
 	.attr("opacity", 0.1);
 
@@ -97,7 +103,7 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
 	.attr("dy", ".35em")
 	.attr("text-anchor", "middle")
 	.text(function(d, i) {return i == rounds.length - 1 ? "Winner" : "Round " + i;})
-	.attr("transform", function(d, j) {return "translate(" + 75 + "," + (25) + ")"; });
+	.attr("transform", function(d, j) {return "translate(" + (stepRound / 2) + "," + (stepElement / 2) + ")"; });
 
 
     var roundElmt = roundsElmts.selectAll(".round")
@@ -106,7 +112,7 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
     roundElmt.exit().remove();
 
     roundsElmts
-	.attr("transform", function(d, i) {return "translate(" + (xLeft + 155 * (i)) + "," + yTop + ")"; });
+	.attr("transform", function(d, i) {return "translate(" + (xLeft + stepRound * (i)) + "," + yTop + ")"; });
 
 
     var insideG = roundElmt.enter()
@@ -115,7 +121,7 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
 
 
     roundElmt
-	.attr("transform", function(d, j) {return "translate(" + 0 + "," + (50 * (j + 1.5)) + ")"; });
+	.attr("transform", function(d, j) {return "translate(" + 0 + "," + (stepElement * (j + 1.5)) + ")"; });
 
 
     insideG
@@ -141,38 +147,7 @@ function updateRunoffViz(rounds, svg, globalWidth, globalHeight, margin, colorTa
 	.attr("dy", ".35em")
 	.text(String);
 
-    
 
-
-//     rounds.forEach(function(v, i) {
-// 		       var currentRoundElmts = graph.selectAll(".g" + i)
-// 			   .data(v.candidates);
-// 
-// 		       currentRoundElmts.enter()
-// 			   .append("g")
-// 			   .attr("class", "g" + i)
-// 			   .append("text")
-// 			   .attr("x", 12)
-// 			   .attr("dy", ".35em")
-// 			   .attr("id", function(d, j) {return "cand" + i + "-" + j;})
-// 			   .text(String);
-// 
-// /*		       currentRoundElmts.enter()
-// 			   .append("rect")
-// 			   .attr("x", (function(d, j) {console.log(document.getElementById("cand" + i + "-" + j).getBBox().x); return document.getElementById("cand" + i + "-" + j).getBBox().x;}))
-// 			   .attr("y", (function(d, j) {console.log(document.getElementById("cand" + i + "-" + j).getBBox().y); return document.getElementById("cand" + i + "-" + j).getBBox().y;}))
-// 			   .attr("width", (function(d, j) {console.log(document.getElementById("cand" + i + "-" + j).getBBox().width); return document.getElementById("cand" + i + "-" + j).getBBox().width;}))
-// 			   .attr("height", (function(d, j) {console.log(document.getElementById("cand" + i + "-" + j).getBBox().height); return document.getElementById("cand" + i + "-" + j).getBBox().height;}))
-// 			   .attr("stroke", "#888");*/
-// 
-// 
-// 		       currentRoundElmts
-// 			   .attr("transform", function(d, j) {return "translate(" + (100 * (i)) + "," + (50 * (j + 1)) + ")"; });
-// 
-// 
-// 		       
-// 		   });
-// 
 }
 
 

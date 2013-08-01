@@ -1,4 +1,6 @@
 
+var divWidth;
+var divHeight;
 var scoringVector = new Object();
 
 var getScoringVector = function(scoringText) {
@@ -81,6 +83,9 @@ var initScoring = function() {
 	.append("svg")
 	.attr("id", "scoringChart")
 	.attr("class", "dataViz");
+
+    divWidth = $("#currentDataViz").width();
+    divHeight = $("#currentDataViz").height();
 };
 
 var updateScoring = function() {
@@ -92,10 +97,8 @@ var updateScoring = function() {
     	$("#approvalThresholdDiv").slideUp();    	
     }
     computeScores(scoreTab, votes, getScoringVector(pluralitySelect.options[pluralitySelect.selectedIndex].text), json.preferenceModel.values);   
-    var width = $("#currentDataViz").width();
-    var height = $("#currentDataViz").height();
 
-    updateChart(scoreTab, candidates, "scoringChart", width, height, {"top": 30, "bottom": 200, "right": 100, "left": 10}, colorTab);
+    updateChart(scoreTab, candidates, "scoringChart", divWidth, divHeight, {"top": 30, "bottom": 200, "right": 100, "left": 10}, colorTab);
 };
 
 
@@ -104,11 +107,12 @@ function updateChart(data, labels, svg, maxWidth, maxHeight, margin, colorTab) {
     var minY = Math.min(0, d3.min(data));
     var maxX = data.length;
 
-    var stepX = Math.min(maxWidth / maxX, 100);
-    var stepY = Math.min(maxHeight / (maxY - minY), 30);
+    var stepX = Math.min((maxWidth - margin.left - margin.right) / maxX, 100);
+    var stepY = Math.min((maxHeight - margin.top - margin.bottom) / (maxY - minY), 20);
 
     var width = stepX * maxX;
     var height = stepY * (maxY - minY);
+    
     var globalWidth = width + margin.left + margin.right;
     var globalHeight = height + margin.top + margin.bottom;
 
