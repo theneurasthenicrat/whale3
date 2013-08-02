@@ -21,6 +21,7 @@ trait AdminRequired extends AbstractPageController {
     request = req
     response = res
     request.setCharacterEncoding("UTF-8")
+    response.setContentType("text/html; charset=utf-8")
     response.setCharacterEncoding("UTF-8")
     val pollId: String = request.getParameter("id")
     if (pollId == null || pollId == "") {

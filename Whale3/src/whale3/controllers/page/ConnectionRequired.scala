@@ -20,6 +20,7 @@ trait ConnectionRequired extends AbstractPageController {
     request = req
     response = res
     request.setCharacterEncoding("UTF-8")
+    response.setContentType("text/html; charset=utf-8")
     response.setCharacterEncoding("UTF-8")
     if (user == null) {
       session.setAttribute("requestedURL", currentURL)

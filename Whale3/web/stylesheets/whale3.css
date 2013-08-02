@@ -69,11 +69,12 @@ ul#menu ul.submenu {
 	list-style: none;
 	position: absolute;
 	margin-left: -100px;
+    z-index: 1000;
 }
 
 ul#menu ul.submenu:before {
 	content: ' ';
-	z-index: -10;
+	z-index: 1000;
 	padding: 0px;
 	margin: 0px;
 	display: block;
@@ -93,15 +94,18 @@ ul#menu ul.submenu li {
 	width: 200px;
 	background: #888;
 	text-align: left;
+    z-index: 1000;
 }
 
 ul#menu ul.submenu li a {
 	color: #eee;
 	line-height: 3em;
+    z-index: 1000;
 }
 
 ul#menu ul.submenu li a:hover {
 	color: #ffbc47;
+	z-index: 1000;
 }
 
 #menu li:hover ul.submenu {
@@ -133,6 +137,7 @@ ul#menu ul.submenu li a:hover {
 	display: inline-block;
 	width: 50px;
 	text-align: center;
+    z-index: 1000;
 }
 
 #homeMenu a:before {

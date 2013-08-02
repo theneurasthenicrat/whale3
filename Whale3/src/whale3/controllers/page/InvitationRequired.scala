@@ -21,6 +21,7 @@ trait InvitationRequired extends AbstractPageController {
 		response = res
 		request.setCharacterEncoding("UTF-8")
 		response.setCharacterEncoding("UTF-8")
+    response.setContentType("text/html; charset=utf-8")
 
 		val pollId: String = request.getParameter("id")
 		if (pollId == null) { super.processRequest(req, res); return }
