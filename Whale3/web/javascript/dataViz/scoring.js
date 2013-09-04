@@ -15,10 +15,12 @@ var getScoringVector = function(scoringText) {
 var initScoring = function() {
     // defines a new global variable containing all the scoring vectors
     scoringVector[bordaLabel] = bordaVector(d3.max(json.preferenceModel.values) - d3.min(json.preferenceModel.values) + 1);
-    scoringVector[bordaLikeLabel] = identityVector(d3.min(json.preferenceModel.values), d3.max(json.preferenceModel.values));
-    scoringVector[pluralityLabel] = pluralityVector(d3.max(json.preferenceModel.values) - d3.min(json.preferenceModel.values) + 1);
-    scoringVector[vetoLabel] = vetoVector(d3.max(json.preferenceModel.values) - d3.min(json.preferenceModel.values) + 1);
-
+    if (json.preferenceModel.id != "approval") {
+    	scoringVector[bordaLikeLabel] = identityVector(d3.min(json.preferenceModel.values), d3.max(json.preferenceModel.values));
+    	scoringVector[pluralityLabel] = pluralityVector(d3.max(json.preferenceModel.values) - d3.min(json.preferenceModel.values) + 1);
+    	scoringVector[vetoLabel] = vetoVector(d3.max(json.preferenceModel.values) - d3.min(json.preferenceModel.values) + 1);
+    }
+    
     // defines a new global variable that will contain the actual scores
     scoreTab = new Array();
 
@@ -27,76 +29,83 @@ var initScoring = function() {
 	.append("label")
 	.text(scoringVectorLabel);
 
-    d3.select("#currentDataViz div.dataVizControl").append("select")
-	.attr("name", "pluralityScores")
-	.attr("id", "pluralityScores")
-	.attr("onchange", "updateScoring()");
-
-    if (json.preferenceModel.id != "positiveNegative") {
-    	d3.select("#pluralityScores").append("option")
-    	.attr("selected", "selected")
-    	.text(bordaLabel);
-    } else {
-    	d3.select("#pluralityScores").append("option")
-    	.attr("selected", "selected")
-    	.text(bordaLikeLabel);
-    }
-
-    d3.select("#pluralityScores").append("option")
-    .text(pluralityLabel);
-
-    if (json.preferenceModel.id != "positiveNegative") {
-    	d3.select("#pluralityScores").append("option")
-    	.text(vetoLabel);
-    }
-
-    d3.select("#pluralityScores").append("option")
-    .text(approvalLabel);
-
-    d3.select("#currentDataViz div.dataVizControl").append("div")
-    .attr("id", "approvalThresholdDiv")
-    .style("display", "none");
-    
-    d3.select("#currentDataViz div.dataVizControl div").append("label")
-    .text(approvalThresholdLabel);
-    
-    d3.select("#currentDataViz div.dataVizControl div").append("select")
-	.attr("name", "approvalThreshold")
-	.attr("id", "approvalThreshold")
-	.attr("onchange", "updateScoring()");
-
-    json.preferenceModel.texts.forEach(function(d, i) {
-    	if (json.preferenceModel.values[i] == 0) {
-    		d3.select("#approvalThreshold").append("option")
-    		.attr("value", json.preferenceModel.values[i])
+    if (json.preferenceModel.id != "approval") {
+    	d3.select("#currentDataViz div.dataVizControl").append("select")
+    	.attr("name", "pluralityScores")
+    	.attr("id", "pluralityScores")
+    	.attr("onchange", "updateScoring()");
+    	
+    	if (json.preferenceModel.id != "positiveNegative") {
+    		d3.select("#pluralityScores").append("option")
     		.attr("selected", "selected")
-    		.text(d);
+    		.text(bordaLabel);
     	} else {
-    		d3.select("#approvalThreshold").append("option")
-    		.attr("value", json.preferenceModel.values[i])
-    		.text(d);    		    		
+    		d3.select("#pluralityScores").append("option")
+    		.attr("selected", "selected")
+    		.text(bordaLikeLabel);
     	}
-    });
+    	
+    	d3.select("#pluralityScores").append("option")
+    	.text(pluralityLabel);
+    	
+    	if (json.preferenceModel.id != "positiveNegative") {
+    		d3.select("#pluralityScores").append("option")
+    		.text(vetoLabel);
+    	}
+    	
+    	d3.select("#pluralityScores").append("option")
+    	.text(approvalLabel);
+    	
+    	d3.select("#currentDataViz div.dataVizControl").append("div")
+    	.attr("id", "approvalThresholdDiv")
+    	.style("display", "none");
+    
+    	d3.select("#currentDataViz div.dataVizControl div").append("label")
+    	.text(approvalThresholdLabel);
+    	
+    	d3.select("#currentDataViz div.dataVizControl div").append("select")
+    	.attr("name", "approvalThreshold")
+    	.attr("id", "approvalThreshold")
+    	.attr("onchange", "updateScoring()");
+
+    	json.preferenceModel.texts.forEach(function(d, i) {
+    		if (json.preferenceModel.values[i] == 0) {
+    			d3.select("#approvalThreshold").append("option")
+    			.attr("value", json.preferenceModel.values[i])
+    			.attr("selected", "selected")
+    			.text(d);
+    		} else {
+    			d3.select("#approvalThreshold").append("option")
+    			.attr("value", json.preferenceModel.values[i])
+    			.text(d);    		    		
+    		}
+    	});
+    }
     
     d3.select("#currentDataViz").append("div")
-	.attr("class", "dataVizInsideDiv")
-	.append("svg")
-	.attr("id", "scoringChart")
-	.attr("class", "dataViz");
-
+    .attr("class", "dataVizInsideDiv")
+    .append("svg")
+    .attr("id", "scoringChart")
+    .attr("class", "dataViz");
+    
     divWidth = $("#currentDataViz").width();
     divHeight = $("#currentDataViz").height();
 };
 
 var updateScoring = function() {
     var colorTab = ["#c31616", "#e1dd38", "#b8da40"];
-    var pluralitySelect = document.getElementById("pluralityScores");
-    if (pluralitySelect.options[pluralitySelect.selectedIndex].text == approvalLabel) {
-    	$("#approvalThresholdDiv").slideDown();
-    } else {
-    	$("#approvalThresholdDiv").slideUp();    	
+    var scoringVectorName = bordaLabel;
+    
+    if (json.preferenceModel.id != "approval") {
+    	var pluralitySelect = document.getElementById("pluralityScores");
+    	if (pluralitySelect.options[pluralitySelect.selectedIndex].text == approvalLabel) {
+    		$("#approvalThresholdDiv").slideDown();
+    	} else {
+    		$("#approvalThresholdDiv").slideUp();    	
+    	}
+    	scoringVectorName = pluralitySelect.options[pluralitySelect.selectedIndex].text;
     }
-    computeScores(scoreTab, votes, getScoringVector(pluralitySelect.options[pluralitySelect.selectedIndex].text), json.preferenceModel.values);   
+    computeScores(scoreTab, votes, getScoringVector(scoringVectorName), json.preferenceModel.values);   
 
     updateChart(scoreTab, candidates, "scoringChart", divWidth, divHeight, {"top": 30, "bottom": 200, "right": 100, "left": 10}, colorTab);
 };
@@ -261,29 +270,28 @@ function updateChart(data, labels, svg, maxWidth, maxHeight, margin, colorTab) {
 
 // Append all these beautiful functions to the list of data visualization charts available
 var scoringViz = function(preferenceModel) {
-	if (preferenceModel != "positiveNegative") {
-		return {
+	var obj = {
 			"title": scoringTitle,    
 			"placeholderPicture": scoringPicture,
 			"initFunction": initScoring,
 			"updateFunction": updateScoring,
 			"description": scoringDescription,
 			"shortDescription": scoringShortDescription
-		};
-	} else {
-		return {
-			"title": scoringTitle,    
-			"placeholderPicture": scoringPicture,
-			"initFunction": initScoring,
-			"updateFunction": updateScoring,
-			"description": scoringDescriptionPositiveNegative,
-			"shortDescription": scoringShortDescription
-		};
+	};
+
+	if (preferenceModel == "positiveNegative") {
+		obj.description = scoringDescriptionPositiveNegative;
 	}
+	if (preferenceModel == "approval") {
+		obj.description = scoringDescriptionApproval;
+	}
+	
+	return obj;
 };
 
 graphs.strictRanks[graphs.strictRanks.length] = scoringViz("strictRanks");
 graphs.positiveNegative[graphs.positiveNegative.length] = scoringViz("positiveNegative");
 graphs.ranks[graphs.ranks.length] = scoringViz("ranks");
+graphs.approval[graphs.approval.length] = scoringViz("approval");
 
 

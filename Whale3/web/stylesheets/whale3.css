@@ -42,7 +42,7 @@ ul#menu {
 	width: 100%;
 	color: #666;
 	background: #eee;
-	padding: 10px 0%;
+	padding: 10px;
 	display: block;
 	margin: 0px;
 	z-index: 0;
@@ -909,6 +909,7 @@ div.emphLink a {
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	z-index: -10;
 }
 
 .info h1 {

@@ -2,6 +2,7 @@ var scoringTitle = "Calcul de scores";
 var scoringPicture = "images/dataViz/scoring.png";
 var scoringDescription = "<p>On compte un nombre de points pour chaque candidat, de la manière suivante :</p><ul><li><strong>Borda :</strong> un candidat gagne <i>n - 1</i> points chaque fois qu'il est classé en premier, <i>n - 2</i> points chaque fois qu'il est classé en second, etc. (<i>n</i> est le nombre de candidats)</li><li><strong>Pluralité :</strong> un candidat gagne 1 point chaque fois qu'il est classé en premier.</li><li><strong>Veto :</strong> un candidat gagne 1 point chaque fois qu'il n'est pas classé dernier.</li></ul>";
 var scoringDescriptionPositiveNegative = "<p>On compte un nombre de points pour chaque candidat, de la manière suivante :</p><ul><li><strong>Simili-Borda :</strong> un candidat gagne 2 points pour chaque « ++ », 1 point pour chaque « + », perd 1 point pour chaque « - », et perd 2 points pour chaque « -- ».</li><li><strong>Pluralité :</strong> un candidat gagne 1 point chaque fois qu'il est classé en premier.</li><li><strong>Approbation :</strong> un candidat gagne 1 point chaque fois qu'il est classé au-dessus du seuil spécifié.</li></ul>";
+var scoringDescriptionApproval = "<p>Le score de chaque candidat est égal au nombre de fois où ce candidat est approuvé (le nombre de oui qu'il reccueille).</p>";
 var scoringShortDescription = "<p>Où l'on compte un nombre de points par candidat...</p>";
 var bordaLabel = "Borda";
 var bordaLikeLabel = "Simili-Borda";

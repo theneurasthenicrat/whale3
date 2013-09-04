@@ -4,7 +4,8 @@ var graphs = {
     "strictRanks": [],
     "ranks": [],
     "positiveNegative": [],
-    "numbers": []
+    "numbers": [],
+    "approval": []
 };
 
 // Some global variables needed by all data visualization charts
@@ -20,14 +21,17 @@ function displayThumbnails() {
     var dataVizTab = new Array();
     switch (json.preferenceModel.id.substring(0, 5)) {
     case "posit":
-	dataVizTab = graphs.positiveNegative;
-	break;
+    	dataVizTab = graphs.positiveNegative;
+    	break;
     case "ranks":
-	dataVizTab = (json.preferenceModel.id.substring(json.preferenceModel.id.length - 1, json.preferenceModel.id.length) == "1") ? graphs.ranks : graphs.strictRanks;
-	break;
+    	dataVizTab = (json.preferenceModel.id.substring(json.preferenceModel.id.length - 1, json.preferenceModel.id.length) == "1") ? graphs.ranks : graphs.strictRanks;
+    	break;
     case "numbe":
-	dataVizTab = graphs.numbers;
-	break;
+    	dataVizTab = graphs.numbers;
+    	break;
+    case "appro":
+    	dataVizTab = graphs.approval;
+    	break;
     }
 
     var thumbsDiv = d3.select("#dataVizThumbnails");
@@ -54,6 +58,10 @@ function displayThumbnails() {
     insideDivs.append("div")
 	.attr("class", "dataVizShortDescription")
 	.html(function(d, i) {return d.shortDescription;});
+    
+    if (dataVizTab.length == 1) {
+    	showDataViz(0, dataVizTab[0].title, dataVizTab[0].description, dataVizTab[0].initFunction, dataVizTab[0].updateFunction);   	
+    }
 }
 
 // Function called when a data visualization thumbnail is clicked
