@@ -33,7 +33,7 @@ class VoteController extends PollController with InvitationRequired {
 				error(getMessage("messages.poll", "unspecifiedPoll", Nil)); return
 			case POLL_CLOSED =>
 				val poll: Poll = Polls.getPollById(pollId)
-				error(getMessage("messages.poll", "isAlreadyClosed", ((new SimpleDateFormat("EEEE d MMMM yyyy", locale)).format(poll.closingDate)) :: ((new SimpleDateFormat("hh:mm", locale)).format(poll.closingDate)) :: Nil)); request.getRequestDispatcher("views/pollMenu.jsp").include(request, response); return
+				error(getMessage("messages.poll", "isAlreadyClosed", ((new SimpleDateFormat("EEEE d MMMM yyyy", locale)).format(poll.closingDate)) :: ((new SimpleDateFormat("hh:mm", locale)).format(poll.closingDate)) :: Nil)); /* (generates a null pointer exception -- don't know why... request.getRequestDispatcher("views/pollMenu.jsp").include(request, response);*/ return
 			case _ => throw new Exception("Unknown step " + errorCode)
 		}
 		val poll: Poll = Polls.getPollById(pollId)
