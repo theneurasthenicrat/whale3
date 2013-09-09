@@ -23,6 +23,9 @@ class PollController extends AbstractPageController {
 		try {
 			val poll: Poll = Polls.getPollById(pollId)
 			request.setAttribute("poll", poll)
+			if (poll.candidates.length == 0) {
+				error(getMessage("messages.poll", "noCandidate", Nil)); return
+			}
 			printPollDescription(poll)
 			printPollHeader(poll)
 			printVotes(poll)
