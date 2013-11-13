@@ -37,7 +37,7 @@ CREATE TABLE RegisteredUsers (
 CREATE TABLE Polls (
        pollId VARCHAR(10) PRIMARY KEY,
        pollTitle VARCHAR(80),
-       pollDescription VARCHAR(300),
+       pollDescription VARCHAR(800),
 --       anonimity INT, -- 0 for open ballots free participation (classic poll); 1 for anonymous on invitation (classic vote); 2 for open ballots on invitation only
        creationDate TIMESTAMP,
        closingDate TIMESTAMP,
