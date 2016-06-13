@@ -1,5 +1,5 @@
 package whale3.vote
-import scala.reflect.BeanProperty
+import scala.beans.BeanProperty
 
 class User(@BeanProperty val userId: String, @BeanProperty val nickName: String) {
   def userName: String = nickName;

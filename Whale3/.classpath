@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/scala"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/sylvain/git/whale3.old/lib/json-taglib-0.4.1.jar"/>
 	<classpathentry kind="lib" path="/home/sylvain/git/whale3/Whale3/web/WEB-INF/lib/org.apache.commons.codec_1.4.0.jar"/>
