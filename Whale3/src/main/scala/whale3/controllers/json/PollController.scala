@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import whale3.vote._
 import whale3.database._
 
-@WebServlet(name = "PollController", urlPatterns = Array("/poll.do-json"))
+@WebServlet(name = "JSONPollController", urlPatterns = Array("/poll.do-json"))
 class PollController extends AbstractJSONController {
 	override def main(): Unit = {
 		val pollId: String = request.getParameter("id")
