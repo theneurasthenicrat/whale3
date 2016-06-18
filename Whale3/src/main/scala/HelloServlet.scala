@@ -20,7 +20,7 @@ import javax.sql.DataSource
 @WebServlet(name = "HelloServlet", urlPatterns = Array("/hello"))
 class HelloServlet extends HttpServlet {
   
-  @Resource(name = "jdbc/whale3")
+  @Resource
   private var ds: DataSource = null
   
   def processRequest(request: HttpServletRequest, response: HttpServletResponse): Unit = {
