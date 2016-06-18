@@ -3,7 +3,7 @@
 Tested with Glassfish. Should run over any application server, and possibly less.
 
 ## Configure
-You have to configure the encryption key. Either in web.xml or in you own app server install.
+You have to configure the encryption key. Either in `web.xml` or in you own app server install.
 
 With Glassfish:
 ```
