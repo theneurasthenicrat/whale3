@@ -6,8 +6,8 @@ import javax.sql.DataSource
 import javax.annotation.Resource
 
 object Connection {
-  @Resource
-  private val ds: DataSource = null
+  //  @Resource(name = "jdbc/whale3")
+  private val ds: DataSource = new javax.naming.InitialContext().lookup("java:comp/env/jdbc/whale3").asInstanceOf[DataSource]
   private var connec: java.sql.Connection = null
 
   def getConnection(): java.sql.Connection = {
